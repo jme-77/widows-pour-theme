@@ -1,0 +1,19 @@
+<section class="wp-manifesto">
+  <div class="wp-manifesto__glow"></div>
+  <div class="wp-manifesto__inner wp-reveal">
+    <div class="wp-manifesto__big-quote">&ldquo;</div>
+    <blockquote class="wp-manifesto__text">{{ section.settings.quote }}</blockquote>
+    <div class="wp-divider"><span class="wp-divider__line"></span><span class="wp-divider__icon">🕯️</span><span class="wp-divider__line"></span></div>
+    <p class="wp-manifesto__byline">{{ section.settings.byline }}</p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Manifesto Quote",
+  "settings": [
+    { "type": "textarea", "id": "quote", "label": "Quote text", "default": "We pour our grief into wax so it can burn into something beautiful. Every flame is a memory. Every scent, a promise kept beyond the veil." },
+    { "type": "text", "id": "byline", "label": "Byline", "default": "— Widow's Pour, Suffolk, Virginia" }
+  ],
+  "presets": [{ "name": "Manifesto Quote" }]
+}
+{% endschema %}

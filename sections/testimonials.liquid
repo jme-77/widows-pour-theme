@@ -1,0 +1,45 @@
+<section class="wp-testimonials">
+  <div style="text-align:center;margin-bottom:58px">
+    <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+    <h2 style="font-family:var(--wp-serif);font-weight:300;font-size:clamp(1.8rem,4vw,3rem);color:var(--wp-cream)">{{ section.settings.heading }}</h2>
+    <div class="wp-divider"><span class="wp-divider__line"></span><span class="wp-divider__icon">🕯️</span><span class="wp-divider__line"></span></div>
+  </div>
+  <div class="wp-testimonials__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'testimonial' -%}
+        <div class="wp-testimonial-card wp-reveal" data-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <div class="wp-testimonial-card__big-q">&ldquo;</div>
+          <div class="wp-testimonial-card__stars">★★★★★</div>
+          <p class="wp-testimonial-card__text">{{ block.settings.text }}</p>
+          <p class="wp-testimonial-card__author">{{ block.settings.name }} — {{ block.settings.location }}</p>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer Stories" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Words from the Circle" }
+  ],
+  "blocks": [{
+    "type": "testimonial",
+    "name": "Testimonial",
+    "settings": [
+      { "type": "textarea", "id": "text", "label": "Quote" },
+      { "type": "text", "id": "name", "label": "Name", "default": "M. Hayes" },
+      { "type": "text", "id": "location", "label": "Location", "default": "Richmond, VA" }
+    ]
+  }],
+  "presets": [{
+    "name": "Testimonials",
+    "blocks": [
+      { "type": "testimonial", "settings": { "text": "This candle stopped me mid-cry. The scent opened something I'd been holding closed for a year. I've ordered three more. I don't know how she does it.", "name": "M. Hayes", "location": "Richmond, VA" } },
+      { "type": "testimonial", "settings": { "text": "Til Death smells exactly like the memory I've been trying to hold onto. Like cedar, warmth, and someone who never quite left. I light it every Sunday.", "name": "T. Rousseau", "location": "New Orleans, LA" } },
+      { "type": "testimonial", "settings": { "text": "The craftsmanship is unlike anything I've seen. This isn't a candle — it's a ritual. I gifted one to my sister after her loss and she called me in tears. The good kind.", "name": "D. Whitfield", "location": "Atlanta, GA" } }
+    ]
+  }]
+}
+{% endschema %}

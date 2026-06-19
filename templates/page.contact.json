@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "page-hero": { "type": "page-hero", "disabled": false, "settings": {
+      "eyebrow": "Get in Touch",
+      "heading": "Contact",
+      "subheading": "We pour with intention. We respond with care."
+    }},
+    "contact-form": { "type": "contact-form", "disabled": false, "settings": {} }
+  },
+  "order": ["page-hero","contact-form"]
+}

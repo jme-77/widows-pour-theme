@@ -1,0 +1,58 @@
+<section
+  class="wp-hero"
+  {% if section.settings.bg_image != blank %}
+    style="background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+  {% endif %}
+>
+  <div class="wp-hero__overlay"></div>
+  <div class="wp-hero__content">
+    <span class="wp-eyebrow wp-fade-up">✧ {{ section.settings.eyebrow }} ✧</span>
+    <h1>{{ section.settings.title_line1 }} {{ section.settings.title_line2 }}</h1>
+    <p>{{ section.settings.tagline }}</p>
+    <a href="{{ section.settings.btn1_url }}" class="wp-btn">{{ section.settings.btn1_text }}</a>
+    <a href="{{ section.settings.btn2_url }}" class="wp-btn">{{ section.settings.btn2_text }}</a>
+  </div>
+</section>
+
+<style>
+  @keyframes wpHeroFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .wp-hero {
+    position: relative;
+    min-height: 100vh;
+    animation: wpHeroFadeIn 1.8s ease forwards;
+  }
+
+  .wp-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+  }
+
+  .wp-hero__content {
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "bg_image", "label": "Background image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow text", "default": "Est. Suffolk, Virginia" },
+    { "type": "text", "id": "title_line1", "label": "Title — line 1", "default": "Widow's" },
+    { "type": "text", "id": "title_line2", "label": "Title — line 2", "default": "Pour" },
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Luxury candles forged from grief." },
+    { "type": "text", "id": "btn1_text", "label": "Button 1 text", "default": "Experience the Collection" },
+    { "type": "url", "id": "btn1_url", "label": "Button 1 link", "default": "/" },
+    { "type": "text", "id": "btn2_text", "label": "Button 2 text", "default": "Our Story" },
+    { "type": "url", "id": "btn2_url", "label": "Button 2 link", "default": "/" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

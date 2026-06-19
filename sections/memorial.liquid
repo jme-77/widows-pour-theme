@@ -1,0 +1,44 @@
+<section class="wp-memorial">
+  <div class="wp-memorial__glow"></div>
+  <div class="wp-memorial__inner wp-reveal">
+    <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+    <h2 class="wp-memorial__heading">{{ section.settings.heading | replace: '[gold]', '<em style="color:var(--wp-gold);font-style:italic">' | replace: '[/gold]', '</em>' }}</h2>
+    <p class="wp-memorial__body">{{ section.settings.body }}</p>
+    <div class="wp-memorial__candles">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'candle' -%}
+          <div class="wp-memorial__candle" {{ block.shopify_attributes }}>
+            <span class="wp-memorial__candle-icon">🕯️</span>
+            <span class="wp-memorial__candle-label">{{ block.settings.label }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <a href="{{ section.settings.btn_url }}" class="wp-btn">{{ section.settings.btn_text }}</a>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Memorial Candles",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Light a Flame" },
+    { "type": "text", "id": "heading", "label": "Heading (use [gold] and [/gold] for gold text)", "default": "For Someone You [gold]Love[/gold]" },
+    { "type": "textarea", "id": "body", "label": "Body text", "default": "Every candle we pour is a vessel for the love that outlasts a lifetime. Gift a flame to someone who carries grief, or light one in your own sacred space." },
+    { "type": "text", "id": "btn_text", "label": "Button text", "default": "Shop Memorial Collection" },
+    { "type": "url", "id": "btn_url", "label": "Button link", "default": "/collections/all" }
+  ],
+  "blocks": [{
+    "type": "candle",
+    "name": "Candle Label",
+    "settings": [{ "type": "text", "id": "label", "label": "Label", "default": "Memory" }]
+  }],
+  "presets": [{
+    "name": "Memorial Candles",
+    "blocks": [
+      { "type": "candle", "settings": { "label": "Memory" } },
+      { "type": "candle", "settings": { "label": "Grief" } },
+      { "type": "candle", "settings": { "label": "Renewal" } }
+    ]
+  }]
+}
+{% endschema %}

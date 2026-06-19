@@ -1,0 +1,28 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "disabled": false,
+      "settings": {
+        "text": "✧ Built on Strength, Fire & Reinvention · Free shipping on orders over $75 ✧",
+        "link": "/collections/all",
+        "link_text": "Shop Now",
+        "show_close": true,
+        "bg_color": "#080808"
+      }
+    },
+    "header": {
+      "type": "header",
+      "disabled": false,
+      "settings": {
+        "logo_max_width": 160,
+        "menu": "main-menu",
+        "show_cart": true,
+        "show_search": true
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

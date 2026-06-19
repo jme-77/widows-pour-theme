@@ -1,0 +1,68 @@
+<div class="wp-contact">
+  <div class="wp-contact__grid">
+    <div>
+      {%- form 'contact', id: 'ContactForm' -%}
+        {%- if form.posted_successfully? -%}
+          <p style="font-family:var(--wp-serif);font-style:italic;font-size:1.1rem;color:rgba(201,151,58,0.85);margin-bottom:24px">
+            Your message has been received. We'll be in touch soon. 🕯️
+          </p>
+        {%- endif -%}
+        <div class="wp-contact__field">
+          <label class="wp-contact__label" for="ContactForm-name">Full Name</label>
+          <input class="wp-contact__input" type="text" id="ContactForm-name" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="Your full name" autocomplete="name">
+        </div>
+        <div class="wp-contact__field">
+          <label class="wp-contact__label" for="ContactForm-email">Email Address</label>
+          <input class="wp-contact__input" type="email" id="ContactForm-email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" placeholder="Your email address" required autocomplete="email">
+        </div>
+        <div class="wp-contact__field">
+          <label class="wp-contact__label" for="ContactForm-subject">Subject</label>
+          <input class="wp-contact__input" type="text" id="ContactForm-subject" name="contact[subject]" placeholder="What's on your mind?">
+        </div>
+        <div class="wp-contact__field">
+          <label class="wp-contact__label" for="ContactForm-body">Message</label>
+          <textarea class="wp-contact__textarea" id="ContactForm-body" name="contact[body]" placeholder="Your message...">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+        <button type="submit" class="wp-btn">{{ section.settings.submit_text }}</button>
+      {%- endform -%}
+    </div>
+    <div>
+      <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+      <h2 style="font-family:var(--wp-serif);font-weight:300;font-size:clamp(2rem,4vw,3rem);color:var(--wp-cream);margin-bottom:32px;line-height:1.1">{{ section.settings.heading }}</h2>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'contact_info' -%}
+          <div class="wp-contact__info-item" {{ block.shopify_attributes }}>
+            <span class="wp-contact__info-label">{{ block.settings.label }}</span>
+            <span class="wp-contact__info-value">{{ block.settings.value }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reach Out" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We'd Love to Hear from You" },
+    { "type": "text", "id": "submit_text", "label": "Submit button text", "default": "Send Message" }
+  ],
+  "blocks": [{
+    "type": "contact_info",
+    "name": "Contact Info Item",
+    "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Email" },
+      { "type": "text", "id": "value", "label": "Value", "default": "hello@widowspour.com" }
+    ]
+  }],
+  "presets": [{
+    "name": "Contact Form",
+    "blocks": [
+      { "type": "contact_info", "settings": { "label": "Email", "value": "hello@widowspour.com" } },
+      { "type": "contact_info", "settings": { "label": "Location", "value": "Suffolk, Virginia" } },
+      { "type": "contact_info", "settings": { "label": "Hours", "value": "Mon – Fri, 10am – 5pm EST" } }
+    ]
+  }]
+}
+{% endschema %}

@@ -1,0 +1,79 @@
+{%- assign fp = section.settings.featured_product -%}
+<section class="wp-featured">
+  <div class="wp-section-top-line"></div>
+  <div class="wp-section-bottom-line"></div>
+  <div class="wp-featured__grid">
+    <div class="wp-featured__img-wrap wp-reveal">
+      <div class="wp-featured__glow"></div>
+      {%- if fp != blank -%}
+        <img class="wp-featured__img" src="{{ fp.featured_image | img_url: '800x' }}" alt="{{ fp.title }}">
+      {%- else -%}
+        <img class="wp-featured__img" src="{{ 'candle-2.png' | asset_url }}" alt="Featured candle">
+      {%- endif -%}
+    </div>
+    <div class="wp-reveal" data-delay="2">
+      <p class="wp-featured__brand-label">Widow's Pour</p>
+      <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+      {%- if fp != blank -%}
+        <h2 class="wp-featured__name">{{ fp.title }}</h2>
+      {%- else -%}
+        <h2 class="wp-featured__name">{{ section.settings.fallback_name }}</h2>
+      {%- endif -%}
+      <div class="wp-divider wp-divider--left">
+        <span class="wp-divider__line"></span>
+        <span class="wp-divider__icon">🕯️</span>
+      </div>
+      <p class="wp-featured__scent">
+        {%- if fp != blank -%}{{ fp.metafields.custom.scent_notes | default: section.settings.fallback_scent }}{%- else -%}{{ section.settings.fallback_scent }}{%- endif -%}
+      </p>
+      <p class="wp-featured__desc">
+        {%- if fp != blank -%}{{ fp.description | strip_html | truncatewords: 60 }}{%- else -%}{{ section.settings.fallback_desc }}{%- endif -%}
+      </p>
+      <ul class="wp-featured__details">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'detail' -%}
+            <li>{{ block.settings.text }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      {%- if fp != blank -%}
+        <a href="{{ fp.url }}" class="wp-btn">{{ section.settings.btn_text }}</a>
+      {%- else -%}
+        <a href="{{ section.settings.fallback_url }}" class="wp-btn">{{ section.settings.btn_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Featured Product",
+  "settings": [
+    { "type": "product", "id": "featured_product", "label": "Featured product" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Signature Pour" },
+    { "type": "text", "id": "fallback_name", "label": "Product name (if no product selected)", "default": "Til Death" },
+    { "type": "text", "id": "fallback_scent", "label": "Scent notes (fallback)", "default": "Cashmere · Amber · Dark Musk" },
+    { "type": "textarea", "id": "fallback_desc", "label": "Description (fallback)", "default": "Born from sacred grief and the strength to carry love forward. This candle burns like a promise kept." },
+    { "type": "url", "id": "fallback_url", "label": "Product link (fallback)", "default": "/collections/all" },
+    { "type": "text", "id": "btn_text", "label": "Button text", "default": "Experience This Scent" }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Product Detail",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Detail line", "default": "Hand-poured in small batches" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Featured Product",
+    "blocks": [
+      { "type": "detail", "settings": { "text": "Hand-poured in small batches" } },
+      { "type": "detail", "settings": { "text": "100% premium wax blend" } },
+      { "type": "detail", "settings": { "text": "Phthalate-free fragrance oils" } },
+      { "type": "detail", "settings": { "text": "Suffolk, Virginia" } },
+      { "type": "detail", "settings": { "text": "50+ hour burn time" } }
+    ]
+  }]
+}
+{% endschema %}

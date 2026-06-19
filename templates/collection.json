@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "disabled": false,
+      "settings": {
+        "eyebrow": "The Collections",
+        "heading": "Our Candle Collection",
+        "subheading": "Explore our luxury candles, hand-poured in small batches."
+      }
+    },
+    "product-grid": {
+      "type": "product-grid",
+      "disabled": false,
+      "settings": {
+        "eyebrow": "The Pours",
+        "heading": "All Candles",
+        "show_cta": false,
+        "products_to_show": 12
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "product-grid"
+  ]
+}

@@ -1,0 +1,57 @@
+<section class="wp-collections">
+  <div class="wp-collections__section-head">
+    <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+    <h2 style="font-family:var(--wp-serif);font-weight:300;font-size:clamp(2rem,4.5vw,3.5rem);color:var(--wp-cream)">{{ section.settings.heading }}</h2>
+    <div class="wp-divider"><span class="wp-divider__line"></span><span class="wp-divider__icon">🕯️</span><span class="wp-divider__line"></span></div>
+  </div>
+  <div class="wp-collections__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'collection_card' -%}
+        {%- assign col = collections[block.settings.collection] -%}
+        <a href="{{ col.url | default: '/collections/all' }}" class="wp-col-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | img_url: '800x1066' }}" alt="{{ block.settings.card_name }}">
+          {%- elsif col != blank and col.image != blank -%}
+            <img src="{{ col.image | img_url: '800x1066' }}" alt="{{ col.title }}">
+          {%- else -%}
+            <img src="{{ 'candle-1.png' | asset_url }}" alt="{{ block.settings.card_name }}">
+          {%- endif -%}
+          <div class="wp-col-card__overlay">
+            <p class="wp-col-card__eyebrow">{{ block.settings.eyebrow }}</p>
+            <h3 class="wp-col-card__name">{{ block.settings.card_name | default: col.title }}</h3>
+            <p class="wp-col-card__desc">{{ block.settings.description }}</p>
+            <span class="wp-col-card__cta">Explore →</span>
+          </div>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Collections Grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Collections" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Pours" }
+  ],
+  "blocks": [{
+    "type": "collection_card",
+    "name": "Collection Card",
+    "settings": [
+      { "type": "collection", "id": "collection", "label": "Collection" },
+      { "type": "image_picker", "id": "image", "label": "Override image" },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow label", "default": "Warm & Amber" },
+      { "type": "text", "id": "card_name", "label": "Collection name", "default": "Eternal Flame" },
+      { "type": "text", "id": "description", "label": "Short description", "default": "Warm amber and woody notes to carry love forward." }
+    ]
+  }],
+  "presets": [{
+    "name": "Collections Grid",
+    "blocks": [
+      { "type": "collection_card", "settings": { "eyebrow": "Warm & Amber", "card_name": "Eternal Flame", "description": "Warm amber and woody notes to carry love forward." } },
+      { "type": "collection_card", "settings": { "eyebrow": "Floral & Soft", "card_name": "Moonlit Roses", "description": "Rose and vanilla notes, delicate as memory." } },
+      { "type": "collection_card", "settings": { "eyebrow": "Dark & Gothic", "card_name": "Love Beyond the Veil", "description": "Deep gothic fragrances for sacred moments." } }
+    ]
+  }]
+}
+{% endschema %}

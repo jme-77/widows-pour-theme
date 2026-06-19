@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "Est. Suffolk, Virginia",
+        "heading": "Our Story",
+        "subheading": "Born from love, loss, and the sacred act of pouring grief into something that burns beautiful."
+      }
+    },
+    "story-beginning": {
+      "type": "story-content",
+      "settings": {
+        "image_first": true,
+        "eyebrow": "The Beginning",
+        "heading": "A Love That Never Left"
+      }
+    },
+    "manifesto": {
+      "type": "manifesto",
+      "settings": {
+        "quote": "Grief is not the absence of love. It is love with nowhere left to go. We give it somewhere to go.",
+        "byline": "— Widow's Pour, Suffolk, Virginia"
+      }
+    },
+    "story-craft": {
+      "type": "story-content",
+      "settings": {
+        "dark_bg": false,
+        "image_first": false,
+        "eyebrow": "The Craft",
+        "heading": "Poured by Hand. Carried by Fire."
+      }
+    },
+    "values": {
+      "type": "values",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Stay Connected",
+        "heading": "Join the Widow's Circle",
+        "subheading": "Exclusive releases, candle rituals, and letters from the founder.",
+        "placeholder": "Your email address...",
+        "btn_text": "Light the Flame",
+        "fine_print": "10% off your first order. Unsubscribe anytime."
+      }
+    }
+  },
+  "order": ["page-hero","story-beginning","manifesto","story-craft","values","newsletter"]
+}

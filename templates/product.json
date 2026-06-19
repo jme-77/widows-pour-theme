@@ -1,0 +1,54 @@
+{
+  "sections": {
+    "product-main": {
+      "type": "product-main",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t-1": {
+          "type": "testimonial",
+          "settings": {
+            "text": "This candle stopped me mid-cry. The scent opened something I'd been holding closed for a year. I've ordered three more.",
+            "name": "M. Hayes",
+            "location": "Richmond, VA"
+          }
+        },
+        "t-2": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Til Death smells exactly like the memory I've been trying to hold onto. I light it every Sunday.",
+            "name": "T. Rousseau",
+            "location": "New Orleans, LA"
+          }
+        },
+        "t-3": {
+          "type": "testimonial",
+          "settings": {
+            "text": "The craftsmanship is unlike anything I've seen. This isn't a candle — it's a ritual.",
+            "name": "D. Whitfield",
+            "location": "Atlanta, GA"
+          }
+        }
+      },
+      "block_order": ["t-1","t-2","t-3"],
+      "settings": {
+        "eyebrow": "What Others Say",
+        "heading": "Words from the Circle"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Stay Connected",
+        "heading": "Join the Widow's Circle",
+        "subheading": "Exclusive releases, candle rituals, and letters from the founder.",
+        "placeholder": "Your email address...",
+        "btn_text": "Light the Flame",
+        "fine_print": "10% off your first order. Unsubscribe anytime."
+      }
+    }
+  },
+  "order": ["product-main","testimonials","newsletter"]
+}

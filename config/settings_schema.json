@@ -1,0 +1,98 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Widow's Pour",
+    "theme_version": "2.0.0",
+    "theme_author": "Widow's Pour Studio",
+    "theme_documentation_url": "https://dirteevixen.com",
+    "theme_support_url": "https://dirteevixen.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "text", "id": "shop_tagline", "label": "Shop tagline", "default": "Luxury candles forged from grief, strength & reinvention." },
+      { "type": "text", "id": "shop_location", "label": "Studio location", "default": "Suffolk, Virginia" }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_bg", "label": "Site background", "default": "#080808" },
+      { "type": "color", "id": "color_dark", "label": "Section background", "default": "#0f0f0f" },
+      { "type": "color", "id": "color_charcoal", "label": "Card background", "default": "#1b1b1b" },
+      { "type": "color", "id": "color_gold", "label": "Gold (primary)", "default": "#c9973a" },
+      { "type": "color", "id": "color_gold_light", "label": "Gold (light hover)", "default": "#e8c46a" },
+      { "type": "color", "id": "color_gold_dark", "label": "Gold (dark)", "default": "#8a6240" },
+      { "type": "color", "id": "color_cream", "label": "Cream text", "default": "#f0e6cf" },
+      { "type": "color", "id": "color_accent", "label": "Accent / burgundy", "default": "#4a0f1a" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "assistant_n4" },
+      { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "assistant_n4" },
+      { "type": "range", "id": "h1_size", "label": "H1 size (desktop)", "min": 40, "max": 120, "step": 2, "unit": "px", "default": 80 },
+      { "type": "range", "id": "h1_size_mobile", "label": "H1 size (mobile)", "min": 24, "max": 72, "step": 2, "unit": "px", "default": 48 },
+      { "type": "range", "id": "h2_size", "label": "H2 size", "min": 24, "max": 80, "step": 2, "unit": "px", "default": 52 },
+      { "type": "range", "id": "h3_size", "label": "H3 size", "min": 16, "max": 48, "step": 1, "unit": "px", "default": 28 },
+      { "type": "range", "id": "h4_size", "label": "H4 size", "min": 14, "max": 32, "step": 1, "unit": "px", "default": 20 },
+      { "type": "range", "id": "body_size", "label": "Body text size", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 16 }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      { "type": "select", "id": "btn_style", "label": "Button style", "default": "outline", "options": [
+        { "value": "outline", "label": "Outline (gold border)" },
+        { "value": "filled", "label": "Filled gold" },
+        { "value": "minimal", "label": "Minimal underline" }
+      ]},
+      { "type": "range", "id": "btn_padding_v", "label": "Vertical padding", "min": 8, "max": 30, "step": 1, "unit": "px", "default": 15 },
+      { "type": "range", "id": "btn_padding_h", "label": "Horizontal padding", "min": 16, "max": 80, "step": 2, "unit": "px", "default": 42 }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      { "type": "range", "id": "logo_max_width", "label": "Logo max width", "min": 80, "max": 300, "step": 4, "unit": "px", "default": 160 },
+      { "type": "checkbox", "id": "sticky_header", "label": "Sticky header", "default": true },
+      { "type": "select", "id": "header_background", "label": "Header background", "default": "blur", "options": [
+        { "value": "solid", "label": "Solid black" },
+        { "value": "blur", "label": "Frosted blur" },
+        { "value": "transparent", "label": "Transparent (over hero)" }
+      ]}
+    ]
+  },
+  {
+    "name": "Animations",
+    "settings": [
+      { "type": "checkbox", "id": "enable_animations", "label": "Enable scroll animations", "default": true },
+      { "type": "checkbox", "id": "enable_smoke", "label": "Enable smoke effect", "default": true },
+      { "type": "checkbox", "id": "enable_flame_pulse", "label": "Enable flame pulse", "default": true },
+      { "type": "select", "id": "animation_speed", "label": "Transition speed", "default": "0.4s", "options": [
+        { "value": "0.2s", "label": "Fast" },
+        { "value": "0.4s", "label": "Medium" },
+        { "value": "0.7s", "label": "Slow" }
+      ]}
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram URL" },
+      { "type": "url", "id": "social_tiktok", "label": "TikTok URL" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook URL" },
+      { "type": "url", "id": "social_pinterest", "label": "Pinterest URL" }
+    ]
+  },
+  {
+    "name": "Custom Code",
+    "settings": [
+      { "type": "textarea", "id": "custom_css", "label": "Custom CSS" },
+      { "type": "textarea", "id": "custom_js", "label": "Custom JavaScript" },
+      { "type": "textarea", "id": "head_scripts", "label": "Head scripts (analytics, pixels)" }
+    ]
+  }
+]

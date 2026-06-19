@@ -1,0 +1,36 @@
+<section class="wp-brand-story">
+  <div class="wp-section-top-line"></div>
+  <div class="wp-brand-story__grid">
+    <div class="wp-brand-story__quote-wrap wp-reveal">
+      <div class="wp-brand-story__quote-bar"></div>
+      <div>
+        <span class="wp-brand-story__quote-mark">&ldquo;</span>
+        <blockquote class="wp-brand-story__blockquote">{{ section.settings.quote }}</blockquote>
+        <cite class="wp-brand-story__cite">{{ section.settings.cite }}</cite>
+      </div>
+    </div>
+    <div class="wp-reveal" data-delay="2">
+      <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+      <h2 class="wp-brand-story__heading">{{ section.settings.heading }}</h2>
+      <p class="wp-brand-story__body">{{ section.settings.body1 }}</p>
+      <p class="wp-brand-story__body">{{ section.settings.body2 }}</p>
+      <a href="{{ section.settings.btn_url }}" class="wp-btn">{{ section.settings.btn_text }}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Brand Story",
+  "settings": [
+    { "type": "textarea", "id": "quote", "label": "Pull quote", "default": "Our candles don't just light up a room — they honor a history, kindle a memory, and ignite a legacy." },
+    { "type": "text", "id": "cite", "label": "Quote attribution", "default": "— Poured with Love & Intention" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow text", "default": "The Story" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Flame Built on Strength" },
+    { "type": "textarea", "id": "body1", "label": "Body paragraph 1", "default": "Widow's Pour was born out of a promise." },
+    { "type": "textarea", "id": "body2", "label": "Body paragraph 2", "default": "Each small batch is a ritual." },
+    { "type": "text", "id": "btn_text", "label": "Button text", "default": "Read Our Story" },
+    { "type": "url", "id": "btn_url", "label": "Button link", "default": "/" }
+  ],
+  "presets": [{ "name": "Brand Story" }]
+}
+{% endschema %}

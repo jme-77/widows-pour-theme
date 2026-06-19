@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+  {%- endif -%}
+  <title>{{ page_title }}{%- unless page_title contains shop.name %} — {{ shop.name }}{% endunless -%}</title>
+  {%- if page_description %}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+  {% render 'meta-tags' %}
+  {{ content_for_header }}
+  
+  <style>
+    :root {
+      --wp-black:    {{ settings.color_bg | default: '#080808' }};
+      --wp-dark:     {{ settings.color_dark | default: '#0f0f0f' }};
+      --wp-charcoal: {{ settings.color_charcoal | default: '#1b1b1b' }};
+      --wp-gold:     {{ settings.color_gold | default: '#c9973a' }};
+      --wp-gold-lt:  {{ settings.color_gold_light | default: '#e8c46a' }};
+      --wp-gold-dk:  {{ settings.color_gold_dark | default: '#8a6240' }};
+      --wp-cream:    {{ settings.color_cream | default: '#f0e6cf' }};
+      --wp-border:    rgba(201,151,58,0.32);
+      --wp-border-lt: rgba(201,151,58,0.14);
+      --wp-serif: 'Cormorant Garamond', Georgia, serif;
+      --wp-sans:  'Montserrat', 'Gill Sans', sans-serif;
+      --wp-ease:  all 0.4s ease;
+    }
+    {%- if settings.custom_css != blank %}{{ settings.custom_css }}{%- endif %}
+
+    /* NAVIGATION SPACING FIX FOR LONG CUSTOM NAMES */
+    @media screen and (min-width: 990px) {
+      .list-menu--inline > li > a,
+      nav a,
+      .header__inline-menu a {
+        font-size: 11px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        letter-spacing: 0.12em !important;
+      }
+    }
+
+    /* DIRECT NATIVE HERO STYLING */
+    .wp-body [class*="hero"] [class*="eyebrow"],
+    .wp-body [class*="hero"] [class*="subtitle"] {
+      font-family: var(--wp-sans) !important;
+      color: var(--wp-gold) !important;
+      font-size: 12px !important;
+      letter-spacing: 0.3em !important;
+      text-transform: uppercase !important;
+      margin-bottom: 25px !important;
+      display: block !important;
+    }
+
+    .wp-body [class*="hero"] h1,
+    .wp-body [class*="hero"] [class*="heading"],
+    .wp-body [class*="hero"] [class*="title"] {
+      font-size: 0 !important;
+      line-height: 0 !important;
+      margin: 0 auto 30px auto !important;
+      text-align: center !important;
+      display: block !important;
+    }
+
+    .wp-body [class*="hero"] h1::before,
+    .wp-body [class*="hero"] [class*="heading"]::before {
+      content: "Widow's" !important;
+      font-family: var(--wp-serif) !important;
+      font-style: italic !important;
+      font-size: 6.5rem !important;
+      color: var(--wp-cream) !important;
+      line-height: 1.1 !important;
+      text-transform: none !important;
+      display: block !important;
+      font-weight: 400 !important;
+    }
+
+    .wp-body [class*="hero"] h1::after,
+    .wp-body [class*="hero"] [class*="heading"]::after {
+      content: "POUR" !important;
+      font-family: var(--wp-serif) !important;
+      font-size: 4.5rem !important;
+      color: var(--wp-gold) !important;
+      letter-spacing: 0.28em !important;
+      line-height: 1.3 !important;
+      text-transform: uppercase !important;
+      display: block !important;
+      font-weight: 600 !important;
+      margin-top: 10px !important;
+    }
+
+    .wp-body [class*="hero"] [class*="text"],
+    .wp-body [class*="hero"] [class*="tagline"],
+    .wp-body [class*="hero"] p {
+      font-family: var(--wp-serif) !important;
+      font-style: italic !important;
+      font-size: 1.5rem !important;
+      color: var(--wp-cream) !important;
+      opacity: 0.85 !important;
+      line-height: 1.6 !important;
+      max-width: 650px !important;
+      margin: 0 auto 35px auto !important;
+      display: block !important;
+    }
+
+    [class*="hero"]::after {
+      background: rgba(0, 0, 0, 0.45) !important;
+    }
+
+    @media screen and (max-width: 749px) {
+      .wp-body [class*="hero"] h1::before { font-size: 4rem !important; }
+      .wp-body [class*="hero"] h1::after { font-size: 2.8rem !important; }
+    }
+
+    /* ── IMMERSIVE LANDING PAGE SPLASH SCREEN STYLES ── */
+    #wp-landing {
+      position: fixed; inset: 0; z-index: 9999999;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 2.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    #wp-landing.fade-out { opacity: 0; pointer-events: none; }
+
+    #c-smoke { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; filter: blur(7px); }
+    #c-ember { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; filter: blur(0.8px); }
+    #

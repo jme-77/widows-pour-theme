@@ -1,0 +1,69 @@
+<footer class="wp-footer">
+  <div class="wp-footer__inner">
+    <div class="wp-footer__grid">
+      <div>
+        <p class="wp-footer__brand-name">{{ section.settings.brand_name | default: shop.name }}</p>
+        <p class="wp-footer__brand-tagline">{{ section.settings.brand_tagline }}</p>
+        <div class="wp-footer__social">
+          {%- if section.settings.instagram != blank -%}<a href="{{ section.settings.instagram }}" class="wp-footer__social-icon" target="_blank" rel="noopener">IG</a>{%- endif -%}
+          {%- if section.settings.tiktok != blank -%}<a href="{{ section.settings.tiktok }}" class="wp-footer__social-icon" target="_blank" rel="noopener">TK</a>{%- endif -%}
+          {%- if section.settings.facebook != blank -%}<a href="{{ section.settings.facebook }}" class="wp-footer__social-icon" target="_blank" rel="noopener">FB</a>{%- endif -%}
+          {%- if section.settings.pinterest != blank -%}<a href="{{ section.settings.pinterest }}" class="wp-footer__social-icon" target="_blank" rel="noopener">PIN</a>{%- endif -%}
+        </div>
+      </div>
+      <div>
+        <p class="wp-footer__col-label">{{ section.settings.col2_label }}</p>
+        <div class="wp-footer__links">
+          {%- for link in linklists[section.settings.shop_menu].links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        </div>
+      </div>
+      <div>
+        <p class="wp-footer__col-label">{{ section.settings.col3_label }}</p>
+        <div class="wp-footer__links">
+          {%- for link in linklists[section.settings.learn_menu].links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        </div>
+      </div>
+      <div>
+        <p class="wp-footer__col-label">{{ section.settings.col4_label }}</p>
+        <div class="wp-footer__links">
+          {%- if section.settings.email != blank -%}<a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>{%- endif -%}
+          {%- if section.settings.location != blank -%}<span style="font-family:var(--wp-sans);font-size:0.6rem;letter-spacing:0.08em;color:rgba(201,151,58,0.28)">{{ section.settings.location }}</span>{%- endif -%}
+        </div>
+      </div>
+    </div>
+    <div class="wp-footer__divider"></div>
+    <div class="wp-footer__bottom">
+      <p class="wp-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      <div class="wp-footer__legal">
+        {%- if section.settings.show_policy_links -%}
+          <a href="{{ shop.url }}/policies/privacy-policy">Privacy Policy</a>
+          <a href="{{ shop.url }}/policies/terms-of-service">Terms</a>
+          <a href="{{ shop.url }}/policies/refund-policy">Refund Policy</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Widow's Pour" },
+    { "type": "textarea", "id": "brand_tagline", "label": "Brand tagline", "default": "Luxury candles forged from grief, strength & reinvention. Hand-poured in small batches in Suffolk, Virginia." },
+    { "type": "header", "content": "Social Links" },
+    { "type": "url", "id": "instagram", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok", "label": "TikTok URL" },
+    { "type": "url", "id": "facebook", "label": "Facebook URL" },
+    { "type": "url", "id": "pinterest", "label": "Pinterest URL" },
+    { "type": "header", "content": "Navigation Columns" },
+    { "type": "text", "id": "col2_label", "label": "Column 2 label", "default": "Shop" },
+    { "type": "link_list", "id": "shop_menu", "label": "Shop menu" },
+    { "type": "text", "id": "col3_label", "label": "Column 3 label", "default": "Learn" },
+    { "type": "link_list", "id": "learn_menu", "label": "Learn menu" },
+    { "type": "text", "id": "col4_label", "label": "Column 4 label", "default": "Connect" },
+    { "type": "text", "id": "email", "label": "Contact email", "default": "hello@widowspour.com" },
+    { "type": "text", "id": "location", "label": "Location", "default": "Suffolk, Virginia" },
+    { "type": "checkbox", "id": "show_policy_links", "label": "Show policy links", "default": true }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,59 @@
+<div style="background:var(--wp-black);padding:80px 0">
+  <div class="wp-product-page">
+    <div class="wp-product-page__grid">
+      <div class="wp-product-page__img-wrap wp-reveal">
+        {%- if product.featured_image -%}
+          <img class="wp-product-page__img" src="{{ product.featured_image | img_url: '900x' }}" alt="{{ product.title | escape }}">
+        {%- else -%}
+          <img class="wp-product-page__img" src="{{ 'candle-2.png' | asset_url }}" alt="{{ product.title | escape }}">
+        {%- endif -%}
+      </div>
+      <div class="wp-reveal" data-delay="2">
+        <p class="wp-product-page__collection">{{ product.collections.first.title }}</p>
+        <h1 class="wp-product-page__title">{{ product.title }}</h1>
+        <p class="wp-product-page__tagline">{{ product.metafields.custom.tagline }}</p>
+        <p class="wp-product-page__scent">{{ product.metafields.custom.scent_notes }}</p>
+        <div class="wp-divider wp-divider--left"><span class="wp-divider__line"></span><span class="wp-divider__icon">🕯️</span></div>
+        <p class="wp-product-page__price">{{ product.price | money }}</p>
+        <p class="wp-product-page__desc">{{ product.description | strip_html }}</p>
+        {%- if product.metafields.custom.details != blank -%}
+          <ul class="wp-product-page__details">
+            {%- for detail in product.metafields.custom.details.value -%}
+              <li>{{ detail }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- form 'product', product -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <div class="wp-qty">
+            <button type="button" class="wp-qty__btn" data-action="minus">−</button>
+            <span class="wp-qty__num">1</span>
+            <button type="button" class="wp-qty__btn" data-action="plus">+</button>
+            <input type="hidden" name="quantity" value="1" class="wp-qty__input">
+          </div>
+          <div class="wp-product-page__atc">
+            {%- if product.available -%}
+              <button type="submit" class="wp-btn">
+                {{ section.settings.atc_text | default: 'Add to Cart' }}
+              </button>
+            {%- else -%}
+              <button class="wp-btn" disabled style="opacity:0.5;cursor:not-allowed">
+                {{ section.settings.sold_out_text | default: 'Sold Out' }}
+              </button>
+            {%- endif -%}
+            <a href="/collections/all" class="wp-btn wp-btn--sm">Continue Shopping</a>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": [
+    { "type": "text", "id": "atc_text", "label": "Add to cart text", "default": "Add to Cart — Carry the Flame" },
+    { "type": "text", "id": "sold_out_text", "label": "Sold out text", "default": "Sold Out" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+<a href="{{ product.url }}" class="wp-product-card">
+  <div class="wp-product-card__img-wrap">
+    {%- if product.featured_image -%}
+      <img class="wp-product-card__img" src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title | escape }}" loading="lazy">
+    {%- else -%}
+      <img class="wp-product-card__img" src="{{ 'candle-1.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+    {%- endif -%}
+    <div class="wp-product-card__img-overlay"></div>
+  </div>
+  <div class="wp-product-card__body">
+    <h3 class="wp-product-card__name">{{ product.title }}</h3>
+    <p class="wp-product-card__scent">{{ product.metafields.custom.scent_notes | default: product.product_type }}</p>
+    <div class="wp-product-card__footer">
+      <span class="wp-product-card__price">{{ product.price | money }}</span>
+      <span class="wp-product-card__view">View</span>
+    </div>
+  </div>
+</a>

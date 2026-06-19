@@ -1,0 +1,80 @@
+<section class="wp-story-section{% if section.settings.dark_bg %} wp-story-section--dark{% endif %}">
+  <div class="wp-story-grid">
+    {%- if section.settings.image_first -%}
+      <div class="wp-reveal">
+        {%- if section.settings.image != blank -%}
+          <img class="wp-story-img" src="{{ section.settings.image | img_url: '800x1000' }}" alt="{{ section.settings.heading }}">
+        {%- else -%}
+          <img class="wp-story-img" src="{{ 'candle-3.png' | asset_url }}" alt="">
+        {%- endif -%}
+      </div>
+      <div class="wp-reveal" data-delay="2">
+        <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+        <h2 style="font-family:var(--wp-serif);font-weight:300;font-size:clamp(2rem,4vw,3.5rem);color:var(--wp-cream);margin-bottom:24px;line-height:1.1">{{ section.settings.heading }}</h2>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'paragraph' -%}<p class="wp-story-body" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>{%- endif -%}
+          {%- if block.type == 'stat' -%}
+            <div class="wp-story-stat" {{ block.shopify_attributes }}>
+              <span class="wp-story-stat__num">{{ block.settings.number }}</span>
+              <span class="wp-story-stat__label">{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="wp-reveal">
+        <span class="wp-eyebrow">✧ {{ section.settings.eyebrow }} ✧</span>
+        <h2 style="font-family:var(--wp-serif);font-weight:300;font-size:clamp(2rem,4vw,3.5rem);color:var(--wp-cream);margin-bottom:24px;line-height:1.1">{{ section.settings.heading }}</h2>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'paragraph' -%}<p class="wp-story-body" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>{%- endif -%}
+          {%- if block.type == 'stat' -%}
+            <div class="wp-story-stat" {{ block.shopify_attributes }}>
+              <span class="wp-story-stat__num">{{ block.settings.number }}</span>
+              <span class="wp-story-stat__label">{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="wp-reveal" data-delay="2">
+        {%- if section.settings.image != blank -%}
+          <img class="wp-story-img" src="{{ section.settings.image | img_url: '800x1000' }}" alt="{{ section.settings.heading }}">
+        {%- else -%}
+          <img class="wp-story-img" src="{{ 'candle-2.png' | asset_url }}" alt="">
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Story Content",
+  "settings": [
+    { "type": "checkbox", "id": "dark_bg", "label": "Dark background", "default": false },
+    { "type": "checkbox", "id": "image_first", "label": "Image on left", "default": true },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Beginning" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Love That Never Left" }
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "settings": [{ "type": "textarea", "id": "text", "label": "Text" }]
+    },
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number / value", "default": "50+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Burn hours per candle" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Story Content",
+    "blocks": [
+      { "type": "paragraph", "settings": { "text": "Widow's Pour was born from 25 years of love and the grief that followed." } }
+    ]
+  }]
+}
+{% endschema %}

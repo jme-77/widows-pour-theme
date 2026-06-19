@@ -1,0 +1,20 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "disabled": false,
+      "settings": {
+        "shop_menu": "footer-shop",
+        "learn_menu": "footer-learn",
+        "contact_email": "hello@widowspour.com",
+        "location": "Suffolk, Virginia",
+        "tagline": "Luxury candles forged from grief,\nstrength & reinvention.",
+        "show_social": true,
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "page-hero": { "type": "page-hero", "disabled": false, "settings": {} },
+    "page-content": { "type": "rich-text", "disabled": false, "settings": {} }
+  },
+  "order": ["page-hero","page-content"]
+}

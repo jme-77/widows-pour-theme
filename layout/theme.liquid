@@ -10,18 +10,27 @@
   <title>{{ page_title }}{%- unless page_title contains shop.name %} — {{ shop.name }}{% endunless -%}</title>
   
   {{ content_for_header }}
-  
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- ✅ GOOGLE FONTS (FIXED + WORKING) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quintessential&family=Tangerine:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- ✅ YOUR STYLES -->
+  <link rel="stylesheet" href="{{ 'base.css' | asset_url }}">
   <link rel="stylesheet" href="{{ 'widows-pour.css' | asset_url }}">
 </head>
 
 <body class="wp-body template-{{ template.name }}">
 
-  {% render 'widows-pour-landing' %}
+  {% if template.name == 'index' %}
+    {% render 'widows-pour-landing' %}
+  {% endif %}
 
   {% sections 'header-group' %}
   
-  <main id="MainContent" role="main" tabindex="-1">
+  <!-- ✅ FADE SYSTEM -->
+  <main id="MainContent" class="wp-page-fade" role="main" tabindex="-1">
     {{ content_for_layout }}
   </main>
 

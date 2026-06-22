@@ -8,8 +8,8 @@
   <div class="wp-hero__content">
     <span class="wp-eyebrow wp-fade-up">✧ {{ section.settings.eyebrow }} ✧</span>
     <h1 class="wp-hero__title">
-      <span class="wp-hero__line1">{{ section.settings.title_line1 }}</span>
-      <span class="wp-hero__line2">{{ section.settings.title_line2 }}</span>
+      <span class="wp-hero__line1">{{ section.settings.title_line1 | default: "Widow's" }}</span>
+      <span class="wp-hero__line2">{{ section.settings.title_line2 | default: "POUR" }}</span>
     </h1>
     <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
     <div class="wp-hero__buttons">

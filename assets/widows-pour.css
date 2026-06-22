@@ -1,60 +1,201 @@
 /* ═══════════════════════════════════════════
-   WIDOW'S POUR — Master CSS
+   WIDOW'S POUR — FULL RESTORED MASTER CSS
+   FINAL VERSION (SHOPIFY + FONT ROOT FIX)
    ═══════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap');
+/* ✅ Load Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quintessential&family=Tangerine:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ─────────────────────────────
+   RESET
+   ───────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+/* ─────────────────────────────
+   ROOT VARIABLES (CRITICAL FIX)
+   ───────────────────────────── */
 :root {
-  --wp-black: #080808; --wp-dark: #0f0f0f; --wp-charcoal: #1b1b1b;
-  --wp-gold: #c9973a; --wp-gold-lt: #e8c46a; --wp-cream: #f0e6cf;
-  --wp-border: rgba(201,151,58,0.32); --wp-border-lt: rgba(201,151,58,0.14);
-  --wp-serif: 'Cormorant Garamond', Georgia, serif;
-  --wp-sans: 'Montserrat', 'Gill Sans', sans-serif;
+
+  /* ✅ OVERRIDE SHOPIFY FONT SYSTEM */
+  --font-paragraph-family: 'Quintessential', serif;
+  --font-heading-family: 'Quintessential', serif;
+
+  /* Theme colors */
+  --wp-black: #080808;
+  --wp-dark: #0f0f0f;
+  --wp-charcoal: #1b1b1b;
+
+  --wp-gold: #c9973a;
+  --wp-gold-lt: #e8c46a;
+
+  --wp-cream: #f0e6cf;
+
+  /* Theme fonts */
+  --wp-serif: 'Quintessential', serif;
+  --wp-sans: 'Montserrat', sans-serif;
+
   --wp-ease: all 0.4s ease;
 }
 
-body { background: var(--wp-black); color: var(--wp-cream); font-family: var(--wp-serif); min-height: 100vh; }
-
-/* ── Header & Mobile Fix ── */
-.wp-header { position: sticky; top: 0; z-index: 1000; background: rgba(8,8,8,0.97); border-bottom: 1px solid rgba(201,151,58,0.12); backdrop-filter: blur(10px); }
-.wp-header__inner { max-width: 1360px; margin: 0 auto; padding: 0 40px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
-@media screen and (max-width: 990px) {
-  .header__inline-menu { display: none !important; }
-  .header__icon--menu { display: block !important; }
+/* ─────────────────────────────
+   BASE TYPOGRAPHY
+   ───────────────────────────── */
+body {
+  background: var(--wp-black);
+  color: var(--wp-cream);
+  font-family: var(--wp-serif);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Hero ── */
-.wp-hero { position: relative; min-height: 100vh; background: var(--wp-black); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 80px 20px; }
-.wp-hero__smoke { position: absolute; inset: 0; pointer-events: none; z-index: 1; animation: smokeShift 12s ease-in-out infinite alternate; }
-
-/* ── Animations ── */
-@keyframes smokeShift {
-  0% { transform: scale(1) translateY(0); opacity: 0.7; }
-  100% { transform: scale(1.08) translateY(-20px); opacity: 1; }
-}
-@keyframes flamePulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--wp-serif);
+  line-height: 1.1;
 }
 
-/* ── Utility Classes ── */
-.wp-eyebrow { font-family: var(--wp-sans); font-size: 0.6rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--wp-gold); }
-.wp-btn { font-family: var(--wp-sans); font-size: 0.65rem; color: var(--wp-gold); border: 1px solid var(--wp-border); padding: 15px 42px; background: transparent; cursor: pointer; transition: var(--wp-ease); }
-.wp-btn:hover { background: rgba(201,151,58,0.08); color: var(--wp-gold-lt); }
-
-/* ── Section Defaults ── */
-.wp-brand-story, .wp-featured, .wp-collections, .wp-product-grid { background: var(--wp-dark); padding: 100px 40px; }
-.wp-product-card { background: var(--wp-charcoal); border: 1px solid var(--wp-border-lt); display: block; text-decoration: none; transition: var(--wp-ease); }
-.wp-product-card:hover { border-color: rgba(201,151,58,0.4); }
-
-/* ── Responsive Grid ── */
-@media (max-width: 1024px) {
-  .wp-brand-story__grid, .wp-featured__grid { grid-template-columns: 1fr; }
-  .wp-product-grid__inner { grid-template-columns: repeat(2,1fr); }
+/* override shopify again just in case */
+body, h1, h2, h3, h4 {
+  font-family: var(--wp-serif);
 }
-@media (max-width: 768px) {
-  .wp-header__nav { display: none; }
-  .wp-footer__grid { grid-template-columns: 1fr; }
+
+a {
+  color: var(--wp-gold);
+  text-decoration: none;
 }
+
+a:hover { color: var(--wp-gold-lt); }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul { list-style: none; }
+
+/* ─────────────────────────────
+   HEADER
+   ───────────────────────────── */
+.wp-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(8,8,8,0.95);
+}
+
+.wp-header__nav a {
+  font-family: var(--wp-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(201,151,58,0.7);
+}
+
+/* ─────────────────────────────
+   HERO SECTION
+   ───────────────────────────── */
+
+.wp-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.wp-hero__content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ✅ MAIN TITLE (THIS WAS THE ACTUAL CLASS) */
+.wp-hero__title {
+  font-family: 'Tangerine', cursive;
+  font-weight: 700;
+  font-size: clamp(5rem, 14vw, 10rem);
+  color: var(--wp-cream);
+  line-height: 0.9;
+}
+
+/* ✅ SECOND TITLE LINE (POUR) */
+.wp-hero__title + * {
+  font-family: 'Quintessential', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  color: var(--wp-gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ✅ TAGLINE */
+.wp-hero__tagline {
+  font-family: 'Tangerine', cursive;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: rgba(240,230,207,0.75);
+  margin-top: 16px;
+}
+
+/* ─────────────────────────────
+   BUTTONS
+   ───────────────────────────── */
+.wp-btn {
+  font-family: var(--wp-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--wp-gold);
+  border: 1px solid rgba(201,151,58,0.3);
+  padding: 14px 38px;
+  background: transparent;
+  cursor: pointer;
+  transition: var(--wp-ease);
+}
+
+.wp-btn:hover {
+  background: rgba(201,151,58,0.08);
+}
+
+/* ─────────────────────────────
+   SECTIONS
+   ───────────────────────────── */
+.wp-section {
+  padding: 100px 40px;
+}
+
+/* ─────────────────────────────
+   PRODUCT GRID
+   ───────────────────────────── */
+.wp-product-card {
+  background: var(--wp-charcoal);
+  border: 1px solid rgba(201,151,58,0.1);
+  padding: 20px;
+}
+
+.wp-product-card__name {
+  font-family: var(--wp-serif);
+}
+
+/* ─────────────────────────────
+   FOOTER
+   ───────────────────────────── */
+.wp-footer {
+  background: #050505;
+  padding: 60px 40px;
+  font-family: var(--wp-serif);
+}
+
+/* ─────────────────────────────
+   FADE TRANSITION
+   ───────────────────────────── */
+.wp-page-fade {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.wp-page-fade.is-visible {

@@ -13,6 +13,26 @@ body {
 }
 
 :root {
+  /* ================================
+     ✅ FONT SYSTEM OVERRIDE (CRITICAL FIX)
+     ================================ */
+
+  --font-paragraph--family: "Quintessential", serif;
+  --font-paragraph--style: normal;
+  --font-paragraph--weight: 400;
+
+  --font-h1--family: "Tangerine", cursive;
+  --font-h2--family: "Quintessential", serif;
+  --font-h3--family: "Quintessential", serif;
+  --font-h4--family: "Quintessential", serif;
+  --font-h5--family: "Quintessential", serif;
+  --font-h6--family: "Quintessential", serif;
+
+  /* ================================
+     ✅ KEEP YOUR EXISTING VARIABLES
+     (IMPORTANT — DO NOT REMOVE)
+     ================================ */
+
   --hover-lift-amount: 4px;
   --hover-scale-amount: 1.03;
   --hover-subtle-zoom-amount: 1.015;
@@ -23,7 +43,7 @@ body {
   --surface-transition-timing: var(--ease-out-quad);
   --submenu-animation-speed: 360ms;
   --submenu-animation-easing: cubic-bezier(0.25, 0.1, 0.25, 1);
-}
+}}
 
 html {
   /* Firefox */

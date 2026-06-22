@@ -4244,25 +4244,4 @@ main#MainContent {
 .header-wrapper {
   background-color: transparent !important;
   background: transparent !important;
-}/* ============================================
-   ✅ FINAL FONT OVERRIDE (OVERRIDES ALL SOURCES)
-   ============================================ */
-
-html body h1,
-html body .h1 {
-  font-family: "Tangerine", cursive !important;
-}
-
-html body h2,
-html body h3,
-html body h4,
-html body h5,
-html body h6 {
-  font-family: "Quintessential", serif !important;
-}
-
-html body,
-html body p,
-html body .paragraph {
-  font-family: "Quintessential", serif !important;
 }

@@ -1,0 +1,155 @@
+<style>
+  /* 1. LOADING THE FONT - Moved to @import to bypass performance flags */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+  /* 2. THE FOUNDATION - Deep #1B1416 Background */
+  .dv-rustic-wrapper {
+    background-color: #1B1416;
+    color: #f4ebd0; 
+    padding: 60px 5%;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    min-height: 90vh; /* Fills more of the screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  /* 3. THE LOGO - Bold & Impactful Size */
+  .dv-logo-rustic {
+    width: 100%;
+    max-width: 750px; /* Upsized again for maximum brand presence */
+    margin: 20px auto 40px auto;
+    mix-blend-mode: screen; 
+  }
+  .dv-logo-rustic img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(1.1) drop-shadow(0 0 15px rgba(0,0,0,0.5));
+  }
+
+  /* 4. TYPOGRAPHY - Elegant Rustic Serif */
+  .dv-headline-rustic {
+    font-size: clamp(2.8rem, 7vw, 5rem); 
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+    color: #f4ebd0;
+    line-height: 1.1;
+  }
+
+  .dv-btn-rustic {
+    display: inline-block;
+    padding: 20px 70px;
+    border: 1px solid #f4ebd0;
+    color: #f4ebd0;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.95rem;
+    transition: all 0.4s ease;
+    margin-bottom: 120px;
+    background: transparent;
+  }
+  .dv-btn-rustic:hover {
+    background-color: #f4ebd0;
+    color: #1B1416;
+  }
+
+  /* 5. CONTENT GRID - Professional Resizing */
+  .dv-rustic-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; 
+    gap: 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+    align-items: center;
+    text-align: left;
+  }
+
+  .dv-candle-frame {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    width: 100%;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  }
+
+  .dv-base-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Triple-Flame Animation */
+  .flame-fx {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("https://cdn.shopify.com/s/files/1/0740/5617/1716/files/widowspour.jpg?v=1774556163");
+    background-size: cover;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+  .fx-1 { clip-path: circle(7% at 34% 20%); animation: flicker 3s infinite; }
+  .fx-2 { clip-path: circle(5% at 39% 60%); animation: flicker 2.5s infinite; animation-delay: 0.5s; }
+  .fx-3 { clip-path: circle(9% at 64% 42%); animation: flicker 4s infinite; animation-delay: 1s; }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 0.6; filter: brightness(100%) blur(1px); }
+    50% { opacity: 1; filter: brightness(180%) blur(4px); }
+  }
+
+  .dv-story-rustic {
+    font-size: 1.3rem;
+    line-height: 2;
+    color: #d1c9b3;
+  }
+
+  /* MOBILE RESPONSIVENESS */
+  @media (max-width: 900px) {
+    .dv-rustic-grid { grid-template-columns: 1fr; gap: 50px; text-align: center; }
+    .dv-headline-rustic { font-size: 2.8rem; }
+    .dv-logo-rustic { max-width: 90%; }
+  }
+</style>
+
+<div class="dv-rustic-wrapper">
+  <div class="dv-logo-rustic">
+    <img src="https://cdn.shopify.com/s/files/1/0740/5617/1716/files/dvlogo_transp.png?v=1774569029" 
+         alt="Dirtee Vixen Logo" 
+         width="750" 
+         height="350" 
+         loading="lazy">
+  </div>
+
+  <h1 class="dv-headline-rustic">Luxury Scented Candles</h1>
+
+  <a href="{{ routes.all_products_collection_url }}" class="dv-btn-rustic">Shop The Collection</a>
+
+  <div class="dv-rustic-grid">
+    <div class="dv-col">
+      <div class="dv-candle-frame">
+        <img src="https://cdn.shopify.com/s/files/1/0740/5617/1716/files/widowspour.jpg?v=1774556163" 
+             class="dv-base-img" 
+             alt="Widow's Pour Luxury Candles"
+             width="700"
+             height="700"
+             loading="lazy">
+        <div class="flame-fx fx-1"></div>
+        <div class="flame-fx fx-2"></div>
+        <div class="flame-fx fx-3"></div>
+      </div>
+    </div>
+
+    <div class="dv-col">
+      <p class="dv-story-rustic">
+        After losing my husband, I created something that felt like me. Bold, unapologetic, a little dark, and still standing. 
+        <br><br>
+        <strong>DIRTEE VIXEN</strong> is built on transformation: rediscovering yourself, owning your story, and turning pain into power. This is for anyone who has been through it, rebuilt, and came back stronger.
+      </p>
+    </div>
+  </div>
+</div>

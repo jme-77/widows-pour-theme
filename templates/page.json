@@ -1,7 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "page-hero": { "type": "page-hero", "disabled": false, "settings": {} },
-    "page-content": { "type": "rich-text", "disabled": false, "settings": {} }
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {}
+    },
+    "page-content": {
+      "type": "rich-text",
+      "settings": {}
+    }
   },
-  "order": ["page-hero","page-content"]
+  "order": [
+    "page-hero",
+    "page-content"
+  ]
 }

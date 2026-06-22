@@ -1,28 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header group",
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
-      "disabled": false,
       "settings": {
-        "text": "✧ Built on Strength, Fire & Reinvention · Free shipping on orders over $75 ✧",
-        "link": "/collections/all",
-        "link_text": "Shop Now",
-        "show_close": true,
-        "bg_color": "#080808"
+        "text": "✧ Built on Strength, Fire & Reinvention · Free shipping on orders over $75 ✧"
       }
     },
     "header": {
       "type": "header",
-      "disabled": false,
       "settings": {
-        "logo_max_width": 160,
-        "menu": "main-menu",
-        "show_cart": true,
-        "show_search": true
+        "logo": "shopify://shop_images/widows-pour-logo.webp",
+        "logo_max_width": 204,
+        "menu": "main-menu"
       }
     }
   },
-  "order": ["announcement-bar", "header"]
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
 }

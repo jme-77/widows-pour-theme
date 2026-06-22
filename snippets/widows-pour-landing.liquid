@@ -1,0 +1,84 @@
+{% comment %} 
+  Widow's Pour — Final Stable Landing Build 
+  Snippet: snippets/widows-pour-landing.liquid
+{% endcomment %}
+
+<audio id="wp-global-audio" loop preload="auto">
+  <source src="{{ 'leberch-dark-509787.mp3' | asset_url }}" type="audio/mp3">
+</audio>
+
+<div id="wp-landing">
+  <canvas id="c-smoke"></canvas>
+  <div class="wp-vignette"></div>
+
+  <div id="wp-scene">
+    <div class="wp-eyebrow">Suffolk, Virginia &nbsp;&middot;&nbsp; Hand Poured Small Batches</div>
+    <img id="wp-logo" src="{{ 'logo.png' | asset_url }}" alt="Widow's Pour" onclick="wpBeginDissolve()">
+    <button id="wp-enter-btn" onclick="wpBeginDissolve()">Embrace the Shadow &middot; Enter the Flame</button>
+  </div>
+</div>
+
+<style>
+  #wp-landing { 
+    position: fixed; inset: 0; z-index: 9999999; background: #000; 
+    display: flex; align-items: center; justify-content: center; 
+    transition: opacity 1.2s ease; 
+  }
+  #wp-landing.wp-fade-out { opacity: 0; pointer-events: none; }
+  #c-smoke { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  #wp-scene { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+  #wp-logo { width: min(300px, 60vw); cursor: pointer; }
+  .wp-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 5px; color: #c9973a; text-transform: uppercase; }
+  #wp-enter-btn { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 4px; color: #f0e6cf; background: transparent; border: 1px solid rgba(201, 151, 58, 0.5); padding: 15px 30px; cursor: pointer; text-transform: uppercase; }
+  .wp-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle, transparent 20%, #000 100%); }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cSmoke = document.getElementById('c-smoke');
+    if (!cSmoke) return;
+    const ctx = cSmoke.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    cSmoke.width = W; cSmoke.height = H;
+
+    class SmokeParticle {
+        constructor() { 
+            this.x = W/2 + (Math.random() - 0.5) * 200; 
+            this.y = H + 50; 
+            this.s = Math.random() * 60 + 40; 
+            this.a = 0.08; 
+            this.v = Math.random() * 1.5 + 0.5; 
+        }
+        update() { this.y -= this.v; this.s += 0.3; this.a -= 0.0008; }
+        draw() { 
+            ctx.fillStyle = `rgba(255,255,255,${this.a})`; 
+            ctx.beginPath(); 
+            ctx.arc(this.x, this.y, this.s, 0, Math.PI * 2); 
+            ctx.fill(); 
+        }
+    }
+    
+    let particles = [];
+    function loop() {
+        ctx.clearRect(0, 0, W, H);
+        if(Math.random() < 0.15) particles.push(new SmokeParticle());
+        particles.forEach((p, i) => { 
+            p.update(); 
+            p.draw(); 
+            if(p.a <= 0) particles.splice(i, 1); 
+        });
+        requestAnimationFrame(loop);
+    }
+    loop();
+});
+
+window.wpBeginDissolve = function () {
+    const audio = document.getElementById('wp-global-audio');
+    if (audio) audio.play().catch(e => console.log(e));
+    const landing = document.getElementById('wp-landing');
+    if (landing) { 
+        landing.classList.add('wp-fade-out'); 
+        setTimeout(() => landing.remove(), 1200); 
+    }
+};
+</script>

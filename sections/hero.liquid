@@ -7,10 +7,15 @@
   <div class="wp-hero__overlay"></div>
   <div class="wp-hero__content">
     <span class="wp-eyebrow wp-fade-up">✧ {{ section.settings.eyebrow }} ✧</span>
-    <h1>{{ section.settings.title_line1 }} {{ section.settings.title_line2 }}</h1>
-    <p>{{ section.settings.tagline }}</p>
-    <a href="{{ section.settings.btn1_url }}" class="wp-btn">{{ section.settings.btn1_text }}</a>
-    <a href="{{ section.settings.btn2_url }}" class="wp-btn">{{ section.settings.btn2_text }}</a>
+    <h1 class="wp-hero__title">
+      <span class="wp-hero__line1">{{ section.settings.title_line1 }}</span>
+      <span class="wp-hero__line2">{{ section.settings.title_line2 }}</span>
+    </h1>
+    <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
+    <div class="wp-hero__buttons">
+      <a href="{{ section.settings.btn1_url }}" class="wp-btn">{{ section.settings.btn1_text }}</a>
+      <a href="{{ section.settings.btn2_url }}" class="wp-btn">{{ section.settings.btn2_text }}</a>
+    </div>
   </div>
 </section>
 
@@ -22,8 +27,12 @@
 
   .wp-hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: wpHeroFadeIn 1.8s ease forwards;
+    overflow: hidden;
   }
 
   .wp-hero__overlay {
@@ -36,6 +45,95 @@
   .wp-hero__content {
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .wp-eyebrow {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #d4af6a;
+    margin-bottom: 1.25rem;
+  }
+
+  .wp-hero__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 1.25rem;
+    line-height: 1;
+  }
+
+  .wp-hero__line1 {
+    font-size: clamp(3.5rem, 14vw, 9rem);
+    color: #fff;
+    display: block;
+  }
+
+  .wp-hero__line2 {
+    font-size: clamp(3rem, 13vw, 8rem);
+    color: #d4af6a;
+    display: block;
+  }
+
+  .wp-hero__tagline {
+    font-size: clamp(0.9rem, 3.5vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 480px;
+    line-height: 1.6;
+    margin: 0 0 2rem;
+  }
+
+  .wp-hero__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .wp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #d4af6a;
+    color: #d4af6a;
+    background: transparent;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+    width: 100%;
+  }
+
+  .wp-btn:hover {
+    background: #d4af6a;
+    color: #000;
+  }
+
+  /* ── Desktop: buttons side by side ── */
+  @media screen and (min-width: 750px) {
+    .wp-hero__buttons {
+      flex-direction: row;
+      max-width: none;
+      justify-content: center;
+    }
+
+    .wp-btn {
+      width: auto;
+      min-width: 220px;
+    }
   }
 </style>
 

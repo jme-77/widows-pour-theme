@@ -13,6 +13,26 @@ body {
 }
 
 :root {
+  /* ================================
+     ✅ FONT SYSTEM OVERRIDE (CRITICAL FIX)
+     ================================ */
+
+  --font-paragraph--family: "Quintessential", serif;
+  --font-paragraph--style: normal;
+  --font-paragraph--weight: 400;
+
+  --font-h1--family: "Tangerine", cursive;
+  --font-h2--family: "Quintessential", serif;
+  --font-h3--family: "Quintessential", serif;
+  --font-h4--family: "Quintessential", serif;
+  --font-h5--family: "Quintessential", serif;
+  --font-h6--family: "Quintessential", serif;
+
+  /* ================================
+     ✅ KEEP YOUR EXISTING VARIABLES
+     (IMPORTANT — DO NOT REMOVE)
+     ================================ */
+
   --hover-lift-amount: 4px;
   --hover-scale-amount: 1.03;
   --hover-subtle-zoom-amount: 1.015;
@@ -23,7 +43,7 @@ body {
   --surface-transition-timing: var(--ease-out-quad);
   --submenu-animation-speed: 360ms;
   --submenu-animation-easing: cubic-bezier(0.25, 0.1, 0.25, 1);
-}
+}}
 
 html {
   /* Firefox */
@@ -382,7 +402,7 @@ p:empty {
   );
 
   /* Offset for full-width sections to account for the page margin,
-  used for Marquee â€” note that --util-page-margin-offset doesn't work here */
+  used for Marquee — note that --util-page-margin-offset doesn't work here */
   --full-page-margin-inline-offset: calc(((100vw - var(--full-page-grid-central-column-width)) / 2) * -1);
 
   width: 100%;
@@ -2492,7 +2512,7 @@ form.payment-terms {
     --spacing-scale: var(--spacing-scale-default);
   }
 
-  /* Must disable this, when you use these with calc and another unit type, things break â€” see logo.liquid */
+  /* Must disable this, when you use these with calc and another unit type, things break — see logo.liquid */
   /* stylelint-disable length-zero-no-unit */
   --padding-block: 0px;
   --padding-block-start: var(--padding-block, 0px);

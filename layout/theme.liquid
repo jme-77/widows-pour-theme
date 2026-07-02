@@ -22,9 +22,9 @@
 
   {% if template.name == 'index' %}
     {% render 'widows-pour-landing' %}
+  {% else %}
+    {% sections 'header-group' %}
   {% endif %}
-
-  {% sections 'header-group' %}
 
   <main id="MainContent" class="wp-page-fade" role="main" tabindex="-1">
     {{ content_for_layout }}

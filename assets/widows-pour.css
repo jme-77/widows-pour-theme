@@ -703,3 +703,21 @@ button { cursor: pointer; font-family: inherit; }
     min-height: calc(100vh - 70px) !important;
   }
 }
+
+/* Force homepage hero to show full image (uses inline --hero-bg-* vars) */
+body.template-index section.wp-hero {
+  background-image: var(--hero-bg-desktop) !important;
+  background-size: auto 100% !important;
+  background-position: center bottom !important;
+  background-repeat: no-repeat !important;
+  min-height: calc(100vh - 70px) !important;
+  overflow: visible !important;
+}
+@media (max-width: 768px) {
+  body.template-index section.wp-hero {
+    background-image: var(--hero-bg-mobile) !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    min-height: calc(100vh - 70px) !important;
+  }
+}

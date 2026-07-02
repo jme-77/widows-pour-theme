@@ -15,6 +15,25 @@
 </div>
 
 <style>
+// ✅ FINAL dissolve with fade-in trigger
+window.wpBeginDissolve = function () {
+    localStorage.setItem('wpVisited', 'true');
+    const audio = document.getElementById('wp-global-audio');
+    if (audio) audio.play().catch(() => {});
+    const landing = document.getElementById('wp-landing');
+    const main = document.getElementById('MainContent');
+    if (landing) {
+        landing.classList.add('wp-fade-out');
+        setTimeout(function () {
+            landing.remove();
+            if (main) {
+                main.style.opacity = "1";
+                main.classList.add('is-visible');
+            }
+        }, 1200);
+    }
+};
+
   #wp-landing {
     position: fixed;
     inset: 0;
@@ -82,19 +101,61 @@
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
 
+// ⭐ FINAL dissolve function — must be defined BEFORE anything else
+window.wpBeginDissolve = function () {
+    localStorage.setItem('wpVisited', 'true');
+
+    const audio = document.getElementById('wp-global-audio');
+    if (audio) audio.play().catch(() => {});
+
+    const landing = document.getElementById('wp-landing');
     const main = document.getElementById('MainContent');
 
-    // ✅ If already visited — skip landing + show page immediately
+    if (landing) {
+        landing.classList.add('wp-fade-out');
+
+        setTimeout(function () {
+            landing.remove();
+            if (main) {
+                main.style.opacity = "1";
+                main.classList.add('is-visible');
+            }
+        }, 1200);
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // ⭐ SHOPIFY EDITOR MODE — ALWAYS SHOW MAIN CONTENT
+    if (Shopify && Shopify.designMode) {
+        const landing = document.getElementById('wp-landing');
+        if (landing) landing.remove();
+
+        const main = document.getElementById('MainContent');
+        if (main) {
+            main.style.opacity = "1";
+            main.classList.add('is-visible');
+        }
+
+        return;
+    }
+
+    // ⭐ If already visited — skip landing
     if (localStorage.getItem('wpVisited') === 'true') {
         const landing = document.getElementById('wp-landing');
         if (landing) landing.remove();
 
-        if (main) main.classList.add('is-visible');
+        const main = document.getElementById('MainContent');
+        if (main) {
+            main.style.opacity = "1";
+            main.classList.add('is-visible');
+        }
+
         return;
     }
 
+    // ⭐ Smoke animation
     const cSmoke = document.getElementById('c-smoke');
     if (!cSmoke) return;
 
@@ -147,32 +208,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     loop();
-});
 
+}); // ⭐ THIS was missing — closes DOMContentLoaded
 
-// ✅ FINAL dissolve with fade-in trigger
-window.wpBeginDissolve = function () {
-
-    localStorage.setItem('wpVisited', 'true');
-
-    const audio = document.getElementById('wp-global-audio');
-    if (audio) audio.play().catch(() => {});
-
-    const landing = document.getElementById('wp-landing');
-    const main = document.getElementById('MainContent');
-
-    if (landing) {
-        landing.classList.add('wp-fade-out');
-
-        setTimeout(function () {
-            landing.remove();
-
-            // ✅ fade in homepage AFTER landing disappears
-            if (main) {
-                main.classList.add('is-visible');
-            }
-
-        }, 1200);
-    }
-};
 </script>
+
+
+<style>
+#MainContent.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+</style>
+
+

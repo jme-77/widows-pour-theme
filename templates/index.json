@@ -9,18 +9,13 @@
  */
 {
   "sections": {
-    "hero": {
+    "hero_naV9Vn": {
       "type": "hero",
+      "name": "Hero",
       "settings": {
-        "bg_image": "shopify://shop_images/hero-bg2.png",
-        "eyebrow": "Est. Suffolk, Virginia 2026",
-        "title_line1": "",
-        "title_line2": "",
-        "tagline": "Luxury candles forged from grief, strength & reinvention.",
-        "btn1_text": "Enter the flame",
-        "btn1_url": "/collections/all",
-        "btn2_text": "behind the pour",
-        "btn2_url": "/pages/our-story"
+        "bg_image": "shopify://shop_images/image_a486357c-9708-4c8b-87d0-812d980e1ffd.png",
+        "bg_image_mobile": "shopify://shop_images/widowspour-mobile-900x1200.png",
+        "tagline": ""
       }
     },
     "brand-story": {
@@ -233,7 +228,7 @@
     }
   },
   "order": [
-    "hero",
+    "hero_naV9Vn",
     "brand-story",
     "featured-product",
     "collections-grid",

@@ -1,4 +1,3 @@
-
 <audio id="wp-global-audio" loop preload="auto">
   <source src="{{ 'leberch-dark-509787.mp3' | asset_url }}" type="audio/mp3">
 </audio>
@@ -15,25 +14,7 @@
 </div>
 
 <style>
-// ✅ FINAL dissolve with fade-in trigger
-window.wpBeginDissolve = function () {
-    localStorage.setItem('wpVisited', 'true');
-    const audio = document.getElementById('wp-global-audio');
-    if (audio) audio.play().catch(() => {});
-    const landing = document.getElementById('wp-landing');
-    const main = document.getElementById('MainContent');
-    if (landing) {
-        landing.classList.add('wp-fade-out');
-        setTimeout(function () {
-            landing.remove();
-            if (main) {
-                main.style.opacity = "1";
-                main.classList.add('is-visible');
-            }
-        }, 1200);
-    }
-};
-
+  /* --- ALL CSS STYLING --- */
   #wp-landing {
     position: fixed;
     inset: 0;
@@ -57,6 +38,7 @@ window.wpBeginDissolve = function () {
     inset: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none; /* Ensures the smoke doesn't block clicks */
   }
 
   #wp-scene {
@@ -91,26 +73,46 @@ window.wpBeginDissolve = function () {
     padding: 15px 30px;
     cursor: pointer;
     text-transform: uppercase;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  #wp-enter-btn:hover {
+    background: rgba(201, 151, 58, 0.2);
+    color: #fff;
   }
 
   .wp-vignette {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle, transparent 20%, #000 100%);
+    pointer-events: none; 
+  }
+
+  /* Universal fade-in class */
+  .is-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 </style>
 
 <script>
+// --- ALL JAVASCRIPT LOGIC ---
 
-// ⭐ FINAL dissolve function — must be defined BEFORE anything else
 window.wpBeginDissolve = function () {
-    localStorage.setItem('wpVisited', 'true');
+    // ⭐ TEMPORARILY DISABLED for testing so you don't get locked out:
+    // localStorage.setItem('wpVisited', 'true');
 
+    // Play Audio
     const audio = document.getElementById('wp-global-audio');
-    if (audio) audio.play().catch(() => {});
+    if (audio) {
+        audio.play().catch((e) => { console.log("Audio autoplay prevented", e); });
+    }
 
+    // Fade out landing
     const landing = document.getElementById('wp-landing');
-    const main = document.getElementById('MainContent');
+    
+    // ⭐ FAILSAFE: Finds the main site content no matter what Shopify named it
+    const main = document.getElementById('MainContent') || document.querySelector('main') || document.body;
 
     if (landing) {
         landing.classList.add('wp-fade-out');
@@ -127,40 +129,27 @@ window.wpBeginDissolve = function () {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ⭐ SHOPIFY EDITOR MODE — ALWAYS SHOW MAIN CONTENT
-    if (Shopify && Shopify.designMode) {
+    // Editor check
+    if (window.Shopify && window.Shopify.designMode) {
         const landing = document.getElementById('wp-landing');
         if (landing) landing.remove();
-
-        const main = document.getElementById('MainContent');
-        if (main) {
-            main.style.opacity = "1";
-            main.classList.add('is-visible');
-        }
-
         return;
     }
 
-    // ⭐ If already visited — skip landing
+    // ⭐ TEMPORARILY DISABLED local storage check so the landing page shows every time you refresh
+    /*
     if (localStorage.getItem('wpVisited') === 'true') {
         const landing = document.getElementById('wp-landing');
         if (landing) landing.remove();
-
-        const main = document.getElementById('MainContent');
-        if (main) {
-            main.style.opacity = "1";
-            main.classList.add('is-visible');
-        }
-
         return;
     }
+    */
 
-    // ⭐ Smoke animation
+    // Smoke animation
     const cSmoke = document.getElementById('c-smoke');
     if (!cSmoke) return;
 
     const ctx = cSmoke.getContext('2d');
-
     let W = window.innerWidth;
     let H = window.innerHeight;
     cSmoke.width = W;
@@ -171,18 +160,16 @@ document.addEventListener('DOMContentLoaded', function () {
             this.x = W / 2 + (Math.random() - 0.5) * 200;
             this.y = H + 50;
             this.s = Math.random() * 60 + 40;
-            this.a = 0.08;
-            this.v = Math.random() * 1.5 + 0.5;
+            this.a = 0.08; 
+            this.v = Math.random() * 1.5 + 0.5; 
         }
-
         update() {
             this.y -= this.v;
-            this.s += 0.3;
-            this.a -= 0.0008;
+            this.s += 0.3; 
+            this.a -= 0.0008; 
         }
-
         draw() {
-            ctx.fillStyle = `rgba(255,255,255,${this.a})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.a})`;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.s, 0, Math.PI * 2);
             ctx.fill();
@@ -193,32 +180,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function loop() {
         ctx.clearRect(0, 0, W, H);
-
         if (Math.random() < 0.15) {
             particles.push(new SmokeParticle());
         }
-
         particles.forEach((p, i) => {
             p.update();
             p.draw();
             if (p.a <= 0) particles.splice(i, 1);
         });
-
         requestAnimationFrame(loop);
     }
 
     loop();
 
-}); // ⭐ THIS was missing — closes DOMContentLoaded
+    window.addEventListener('resize', function() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        cSmoke.width = W;
+        cSmoke.height = H;
+    });
 
+});
 </script>
-
-
-<style>
-#MainContent.is-visible {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-</style>
-
-

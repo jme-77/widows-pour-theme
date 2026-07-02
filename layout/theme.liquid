@@ -11,16 +11,13 @@
   
   {{ content_for_header }}
 
-  <!-- ✅ GOOGLE FONTS (FIXED + WORKING) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Quintessential&family=Tangerine:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Quintessential&family=Tangerine:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- ✅ YOUR STYLES -->
   <link rel="stylesheet" href="{{ 'base.css' | asset_url }}">
   <link rel="stylesheet" href="{{ 'widows-pour.css' | asset_url }}">
 </head>
-
 <body class="wp-body template-{{ template.name }}">
 
   {% if template.name == 'index' %}
@@ -28,8 +25,7 @@
   {% endif %}
 
   {% sections 'header-group' %}
-  
-  <!-- ✅ FADE SYSTEM -->
+
   <main id="MainContent" class="wp-page-fade" role="main" tabindex="-1">
     {{ content_for_layout }}
   </main>

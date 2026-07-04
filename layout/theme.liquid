@@ -20,21 +20,14 @@
 </head>
 <body class="wp-body template-{{ template.name }}">
 
-  {% if template.name == 'index' %}
-    <main id="MainContent" class="wp-page-fade" role="main" tabindex="-1">
-      {{ content_for_layout }}
-    </main>
+  {%- comment -%} Always render header-group so menu links and header JS are present site-wide {%- endcomment -%}
+  {% sections 'header-group' %}
 
-    {% sections 'footer-group' %}
-  {% else %}
-    {% sections 'header-group' %}
+  <main id="MainContent" class="wp-page-fade" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
 
-    <main id="MainContent" class="wp-page-fade" role="main" tabindex="-1">
-      {{ content_for_layout }}
-    </main>
-
-    {% sections 'footer-group' %}
-  {% endif %}
+  {% sections 'footer-group' %}
 
   <script src="{{ 'widows-pour.js' | asset_url }}" defer></script>
 </body>

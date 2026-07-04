@@ -720,4 +720,34 @@ body.template-index section.wp-hero {
     background-position: center top !important;
     min-height: calc(100vh - 70px) !important;
   }
+}/* ...existing code... */
+
+/* HERO: ensure full hero image visible on homepage and avoid vertical crop */
+body.template-index section.wp-hero,
+body.template-index .wp-hero {
+  min-height: calc(100vh - 70px) !important;
+  height: auto !important;
+  background-size: auto 100% !important;      /* prefer full image height */
+  background-position: center bottom !important;
+  background-repeat: no-repeat !important;
+  overflow: visible !important;
 }
+
+/* if hero uses an <img> */
+body.template-index section.wp-hero img,
+body.template-index .wp-hero img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+  body.template-index section.wp-hero,
+  body.template-index .wp-hero {
+    background-size: cover !important;
+    background-position: center top !important;
+    min-height: 60vh !important;
+  }
+}
+
+/* end hero override */

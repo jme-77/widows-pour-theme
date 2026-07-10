@@ -1,5 +1,4 @@
 <style>
-  /* Force the Shopify section wrapper itself to be full width */
   .shopify-section:has(.wp-hero) {
     width: 100% !important;
     max-width: 100% !important;
@@ -12,25 +11,41 @@
   style="
     --hero-bg-desktop: url('{{ section.settings.bg_image | image_url: width: 2560 }}');
     --hero-bg-mobile: url('{{ section.settings.bg_image_mobile | image_url: width: 900 }}');
-    background-image: url('{{ section.settings.bg_image | image_url: width: 2560 }}');
   "
 >
+  <!-- Background + overlay -->
+  <div class="wp-hero__bg"></div>
   <div class="wp-hero__overlay"></div>
 
-  <div class="wp-hero__content">
+  <!-- Smoke layer -->
+  <div class="wp-hero__smoke"></div>
+
+  <!-- Ornaments -->
+  <div class="wp-hero__ornament wp-hero__ornament--tl">✦</div>
+  <div class="wp-hero__ornament wp-hero__ornament--tr">✦</div>
+  <div class="wp-hero__ornament wp-hero__ornament--bl">✦</div>
+  <div class="wp-hero__ornament wp-hero__ornament--br">✦</div>
+
+  <!-- Content -->
+  <div class="wp-hero__content wp-fade-up">
     {% if section.settings.hero_logo != blank %}
-      <div class="wp-hero__logo">
+      <div class="wp-hero__logo wp-fade-up-2">
         <img 
           src="{{ section.settings.hero_logo | image_url: width: 800 }}"
           alt="{{ section.settings.hero_logo.alt | default: 'Hero Graphic' }}"
-          style="max-width: 100%; height: auto; display: block;"
         >
       </div>
     {% endif %}
 
     {% if section.settings.tagline != blank %}
-      <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
+      <p class="wp-hero__tagline wp-fade-up-3">{{ section.settings.tagline }}</p>
     {% endif %}
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="wp-hero__scroll wp-fade-up-4">
+    <div class="wp-hero__scroll-line"></div>
+    <div class="wp-hero__scroll-label">Scroll</div>
   </div>
 </section>
 
@@ -41,7 +56,7 @@
   }
 
   .wp-hero {
-    position: relative;
+    position: relative !important;
     margin: 0 !important;
     padding: 0 !important;
     min-height: 100vh;
@@ -55,10 +70,8 @@
     background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
-    background-attachment: scroll !important;
   }
 
-  /* Full-bleed breakout — live storefront only */
   {% unless request.design_mode %}
   .wp-hero {
     width: 100vw !important;
@@ -68,7 +81,6 @@
   }
   {% endunless %}
 
-  /* Editor mode — contained width so it renders in the iframe */
   {% if request.design_mode %}
   .wp-hero {
     width: 100% !important;
@@ -80,43 +92,24 @@
     .wp-hero {
       background-image: var(--hero-bg-mobile);
       background-position: center top !important;
+      min-height: 100svh;
+      height: 100svh;
     }
   }
 
-  .wp-hero__overlay {
+  .wp-hero__bg {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.25);
-    z-index: 0;
+    background-image: var(--hero-bg-desktop);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.18;
   }
 
-  .wp-hero__content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    min-height: 80vh;
-  }
-
-  .wp-hero__logo {
-    margin-bottom: 2.5rem;
-    width: 100%;
-    max-width: 600px;
-  }
-
-  .wp-hero__tagline {
-    font-size: clamp(0.9rem, 3.5vw, 1.15rem);
-    color: rgba(255, 255, 255, 0.85);
-    max-width: 480px;
-    line-height: 1.6;
-    margin: 0;
+  @media (max-width: 768px) {
+    .wp-hero__bg {
+      background-image: var(--hero-bg-mobile);
+    }
   }
 </style>
 
@@ -127,14 +120,12 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Background image — Desktop",
-      "info": "Recommended: 2560×1080px JPG"
+      "label": "Background image — Desktop"
     },
     {
       "type": "image_picker",
       "id": "bg_image_mobile",
-      "label": "Background image — Mobile",
-      "info": "Recommended: 900×1200px JPG. If left blank, desktop image is used."
+      "label": "Background image — Mobile"
     },
     {
       "type": "image_picker",

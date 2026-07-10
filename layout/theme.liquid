@@ -22,11 +22,12 @@
 <body class="wp-body template-{{ template.name }}">
 
   {%- comment -%} Only render the custom landing snippet on the homepage {%- endcomment -%}
-  {% if template.name == 'index' %}
-    {% render 'widows-pour-landing' %}
-  {% endif %}
+    {% sections 'header-group' %}
 
-  {% sections 'header-group' %}
+  {%- if template.name == 'index' -%}
+  {%- render 'widows-pour-landing' -%}
+{%- endif -%}
+
 
   <main id="MainContent" class="wp-page-fade" role="main" tabindex="-1">
     {{ content_for_layout }}

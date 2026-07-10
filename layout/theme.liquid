@@ -18,7 +18,13 @@
   <link rel="stylesheet" href="{{ 'base.css' | asset_url }}">
   <link rel="stylesheet" href="{{ 'widows-pour.css' | asset_url }}">
 </head>
+
 <body class="wp-body template-{{ template.name }}">
+
+  {%- comment -%} Only render the custom landing snippet on the homepage {%- endcomment -%}
+  {% if template.name == 'index' %}
+    {% render 'widows-pour-landing' %}
+  {% endif %}
 
   {% sections 'header-group' %}
 

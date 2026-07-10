@@ -6,6 +6,7 @@
   function initReveal() {
     const els = document.querySelectorAll('.wp-reveal');
     if (!els.length) return;
+
     const io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -14,39 +15,49 @@
         }
       });
     }, { threshold: 0.15 });
-    els.forEach(function (el) { io.observe(el); });
+
+    els.forEach(function (el) {
+      io.observe(el);
+    });
   }
 
   /* ── Mobile nav toggle ── */
   function initMobileNav() {
-    var toggle = document.querySelector('.wp-hamburger');
-    var mobileNav = document.querySelector('.wp-mobile-nav');
-    var close = document.querySelector('.wp-mobile-nav__close');
-    var links = document.querySelectorAll('.wp-mobile-nav a');
+    const toggle = document.querySelector('.wp-hamburger');
+    const mobileNav = document.querySelector('.wp-mobile-nav');
+    const close = document.querySelector('.wp-mobile-nav__close');
+    const links = document.querySelectorAll('.wp-mobile-nav a');
     if (!toggle || !mobileNav) return;
 
-    function open() {
+    function openNav() {
       toggle.classList.add('is-open');
       mobileNav.classList.add('is-open');
       document.body.style.overflow = 'hidden';
     }
+
     function closeNav() {
       toggle.classList.remove('is-open');
       mobileNav.classList.remove('is-open');
       document.body.style.overflow = '';
     }
+
     toggle.addEventListener('click', function () {
-      mobileNav.classList.contains('is-open') ? closeNav() : open();
+      mobileNav.classList.contains('is-open') ? closeNav() : openNav();
     });
+
     if (close) close.addEventListener('click', closeNav);
-    links.forEach(function (l) { l.addEventListener('click', closeNav); });
+    links.forEach(function (link) {
+      link.addEventListener('click', closeNav);
+    });
   }
 
   /* ── Active nav link ── */
   function initActiveNav() {
-    var path = window.location.pathname;
+    const path = window.location.pathname;
     document.querySelectorAll('.wp-header__nav a').forEach(function (a) {
-      if (a.getAttribute('href') === path) a.classList.add('is-active');
+      if (a.getAttribute('href') === path) {
+        a.classList.add('is-active');
+      }
     });
   }
 
@@ -59,13 +70,14 @@
 
   /* ── Newsletter form ── */
   function initNewsletter() {
-    var forms = document.querySelectorAll('.wp-newsletter__form');
+    const forms = document.querySelectorAll('.wp-newsletter__form');
     forms.forEach(function (form) {
-      var success = form.closest('.wp-newsletter__inner')
-                       .querySelector('.wp-newsletter__success');
+      const success = form.closest('.wp-newsletter__inner')
+                           .querySelector('.wp-newsletter__success');
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var input = form.querySelector('.wp-newsletter__input');
+        const input = form.querySelector('.wp-newsletter__input');
         if (!input || !input.value) return;
         form.style.display = 'none';
         if (success) success.style.display = 'block';
@@ -76,32 +88,64 @@
   /* ── Cart icon badge ── */
   function initCartCount() {
     fetch('/cart.js')
-      .then(function (r) { return r.json(); })
+      .then(function (response) {
+        return response.json();
+      })
       .then(function (cart) {
-        var badge = document.querySelector('.wp-cart-count');
+        const badge = document.querySelector('.wp-cart-count');
         if (badge && cart.item_count > 0) {
           badge.textContent = cart.item_count;
           badge.style.display = 'flex';
         }
       })
-      .catch(function () {});
+      .catch(function () {
+        // ignore cart fetch errors
+      });
   }
 
   /* ── Quantity selector ── */
   function initQty() {
     document.querySelectorAll('.wp-qty').forEach(function (wrap) {
-      var minus = wrap.querySelector('[data-action="minus"]');
-      var plus  = wrap.querySelector('[data-action="plus"]');
-      var num   = wrap.querySelector('.wp-qty__num');
-      var input = wrap.querySelector('input');
+      const minus = wrap.querySelector('[data-action="minus"]');
+      const plus = wrap.querySelector('[data-action="plus"]');
+      const num = wrap.querySelector('.wp-qty__num');
+      const input = wrap.querySelector('input');
       if (!minus || !plus || !num) return;
+
       minus.addEventListener('click', function () {
-        var v = parseInt(num.textContent) || 1;
-        if (v > 1) { num.textContent = v - 1; if (input) input.value = v - 1; }
+        const value = parseInt(num.textContent, 10) || 1;
+        if (value > 1) {
+          num.textContent = value - 1;
+          if (input) input.value = value - 1;
+        }
       });
+
       plus.addEventListener('click', function () {
-        var v = parseInt(num.textContent) || 1;
-        num.textContent = v + 1; if (input) input.value = v + 1;
+        const value = parseInt(num.textContent, 10) || 1;
+        num.textContent = value + 1;
+        if (input) input.value = value + 1;
+      });
+    });
+  }
+
+  /* ── Page fade transition ── */
+  function initPageFade() {
+    document.body.classList.add('wp-fade-in');
+
+    document.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href.startsWith('#') || this.target === '_blank') return;
+
+        e.preventDefault();
+        const targetUrl = this.href;
+
+        document.body.classList.remove('wp-fade-in');
+        document.body.classList.add('wp-fade-out');
+
+        setTimeout(function () {
+          window.location.href = targetUrl;
+        }, 500);
       });
     });
   }
@@ -115,29 +159,6 @@
     initNewsletter();
     initCartCount();
     initQty();
+    initPageFade();
   });
-})();/* ── Page Fade Transition ── */
-  document.addEventListener('DOMContentLoaded', () => {
-    // Add the "fade-in" class once the page loads
-    document.body.classList.add('wp-fade-in');
-
-    // Listen for all link clicks to trigger the dissolve
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        // Skip links that are hash anchors or open in new tabs
-        if (this.getAttribute('href')?.startsWith('#') || this.target === '_blank') return;
-        
-        e.preventDefault();
-        const targetUrl = this.href;
-
-        // Trigger the exit animation
-        document.body.classList.remove('wp-fade-in');
-        document.body.classList.add('wp-fade-out');
-
-        // Wait for animation to finish (match CSS transition duration)
-        setTimeout(() => {
-          window.location.href = targetUrl;
-        }, 500);
-      });
-    });
-  });
+})();

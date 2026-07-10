@@ -776,4 +776,57 @@ body.template-index .wp-hero img {
     background-position: center top !important;
     min-height: 60vh !important;
   }
+}/* Behind the Pour page styling (place at end of file) */
+.bp-page { color: #e9dfcf; font-family: "Cormorant Garamond", serif; }
+
+.bp-hero {
+  background-size: cover;
+  background-position: center center;
+  padding: 120px 20px 80px;
+  text-align: center;
+  position: relative;
+  color: #f6ead6;
+}
+.bp-eyebrow {
+  color: #cf9b3f;
+  letter-spacing: 6px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.bp-title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 84px;
+  line-height: 0.95;
+  margin: 0 0 18px;
+}
+.bp-sub {
+  font-size: 18px;
+  color: #d9ccb7;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* CONTENT */
+.bp-content {
+  max-width: 920px;
+  margin: 64px auto 120px;
+  padding: 0 20px;
+  font-size: 20px;
+  line-height: 1.85;
+  color: #e9dfcf;
+}
+.bp-content p { margin-bottom: 1rem; }
+.bp-content strong { font-weight: 600; }
+.bp-italic { font-style: italic; color: #e0d3bd; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .bp-title { font-size: 48px; }
+  .bp-content { font-size: 18px; margin: 40px auto; }
+}
+@media (max-width: 480px) {
+  .bp-title { font-size: 32px; }
+  .bp-sub { font-size: 15px; }
+  .bp-content { font-size: 16px; padding: 0 16px; }
 }

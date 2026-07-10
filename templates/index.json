@@ -1,11 +1,19 @@
-
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_naV9Vn": {
       "type": "hero",
       "name": "Hero",
       "settings": {
-        "bg_image": "shopify://shop_images/image_a486357c-9708-4c8b-87d0-812d980e1ffd.png",
+        "bg_image": "shopify://shop_images/newherobg.png",
         "bg_image_mobile": "shopify://shop_images/widowspour-mobile-900x1200.png",
         "tagline": ""
       }

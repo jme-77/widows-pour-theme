@@ -16,6 +16,11 @@
 <style>
   /* --- ALL CSS STYLING --- */
  #wp-landing {
+    .wp-freeze {
+  overflow: hidden;
+  height: 100vh;
+}
+
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -101,6 +106,8 @@
 // --- ALL JAVASCRIPT LOGIC ---
 
 window.wpBeginDissolve = function () {
+    document.body.classList.add('wp-freeze');
+
     // ⭐ TEMPORARILY DISABLED for testing so you don't get locked out:
     // localStorage.setItem('wpVisited', 'true');
 

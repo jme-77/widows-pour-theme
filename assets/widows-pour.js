@@ -116,4 +116,28 @@
     initCartCount();
     initQty();
   });
-})();
+})();/* ── Page Fade Transition ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add the "fade-in" class once the page loads
+    document.body.classList.add('wp-fade-in');
+
+    // Listen for all link clicks to trigger the dissolve
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        // Skip links that are hash anchors or open in new tabs
+        if (this.getAttribute('href')?.startsWith('#') || this.target === '_blank') return;
+        
+        e.preventDefault();
+        const targetUrl = this.href;
+
+        // Trigger the exit animation
+        document.body.classList.remove('wp-fade-in');
+        document.body.classList.add('wp-fade-out');
+
+        // Wait for animation to finish (match CSS transition duration)
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 500);
+      });
+    });
+  });

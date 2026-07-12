@@ -83,52 +83,72 @@
     }
   }
 
-  /* Design Mode Override */
+  /* Design Mode Breakout Wrapper Fix */
   {% unless request.design_mode %}
-  .wp-hero {
+  .wp-hero-wrapper {
     width: 100vw;
+    position: relative;
     left: 50%;
-    transform: translateX(-50%);
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
   }
   {% endunless %}
 </style>
 
-<section class="wp-hero"
-  style="
-    --hero-bg-desktop: url('{{ section.settings.bg_image | image_url: width: 2560 }}');
-    --hero-bg-mobile: url('{{ section.settings.bg_image_mobile | image_url: width: 900 }}');
-  "
->
-  <div class="wp-hero__bg"></div>
-  <div class="wp-hero__smoke"></div>
+<div class="wp-hero-wrapper">
+  <section class="wp-hero"
+    style="
+      {% if section.settings.bg_image != blank %}
+        --hero-bg-desktop: url('{{ section.settings.bg_image | image_url: width: 2560 }}');
+      {% else %}
+        --hero-bg-desktop: #111111;
+      {% endif %}
+      
+      {% if section.settings.bg_image_mobile != blank %}
+        --hero-bg-mobile: url('{{ section.settings.bg_image_mobile | image_url: width: 900 }}');
+      {% else %}
+        --hero-bg-mobile: var(--hero-bg-desktop);
+      {% endif %}
+    "
+  >
+    <div class="wp-hero__bg"></div>
+    <div class="wp-hero__smoke"></div>
 
-  <div class="wp-hero__ornament wp-hero__ornament--tl">✦</div>
-  <div class="wp-hero__ornament wp-hero__ornament--tr">✦</div>
-  <div class="wp-hero__ornament wp-hero__ornament--bl">✦</div>
-  <div class="wp-hero__ornament wp-hero__ornament--br">✦</div>
+    <div class="wp-hero__ornament wp-hero__ornament--tl">✦</div>
+    <div class="wp-hero__ornament wp-hero__ornament--tr">✦</div>
+    <div class="wp-hero__ornament wp-hero__ornament--bl">✦</div>
+    <div class="wp-hero__ornament wp-hero__ornament--br">✦</div>
 
-  <div class="wp-hero__content">
-    {% if section.settings.hero_logo != blank %}
-      <div class="wp-hero__logo">
-        <img src="{{ section.settings.hero_logo | image_url: width: 800 }}" alt="{{ section.settings.hero_logo.alt | default: 'Hero Graphic' }}">
-      </div>
-    {% endif %}
+    <div class="wp-hero__content">
+      {% if section.settings.hero_logo != blank %}
+        <div class="wp-hero__logo">
+          <img 
+            src="{{ section.settings.hero_logo | image_url: width: 800 }}" 
+            alt="{{ section.settings.hero_logo.alt | default: 'Hero Graphic' }}"
+            loading="eager"
+            width="{{ section.settings.hero_logo.width }}"
+            height="{{ section.settings.hero_logo.height }}"
+          >
+        </div>
+      {% endif %}
 
-    {% if section.settings.tagline != blank %}
-      <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
-    {% endif %}
-  </div>
-</section>
+      {% if section.settings.tagline != blank %}
+        <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
+      {% endif %}
+    </div>
+  </section>
+</div>
 
 {% schema %}
 {
-  "name": "Hero",
+  "name": "Hero Banner",
   "settings": [
     { "type": "image_picker", "id": "bg_image", "label": "Background image — Desktop" },
     { "type": "image_picker", "id": "bg_image_mobile", "label": "Background image — Mobile" },
     { "type": "image_picker", "id": "hero_logo", "label": "Hero Graphic / Logo" },
     { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Luxury candles forged from grief." }
   ],
-  "presets": [ { "name": "Hero" } ]
+  "presets": [ { "name": "Hero Banner" } ]
 }
 {% endschema %}

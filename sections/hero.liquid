@@ -2,12 +2,6 @@
 {% assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900 %}
 
 <style>
-  {% if section.settings.bg_image != blank %}
-    .wp-hero {
-      background-image: url('{{ desktop_bg }}');
-    }
-  {% endif %}
-
   .wp-hero {
     position: relative;
     min-height: 100vh;
@@ -19,6 +13,9 @@
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ desktop_bg }}');
+    {% endif %}
   }
 
   .wp-hero__overlay {

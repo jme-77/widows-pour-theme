@@ -13,6 +13,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-image: var(--hero-bg-desktop);
+    background-color: #111111; /* Visible dark background fallback if image is null */
     animation: wpHeroFadeIn 1.8s ease forwards;
   }
 
@@ -31,6 +32,7 @@
     text-align: center;
     width: 90%;
     max-width: 800px;
+    padding: 40px 0;
   }
 
   .wp-hero__logo {
@@ -83,7 +85,7 @@
     }
   }
 
-  /* Design Mode Breakout Wrapper Fix */
+  /* Secure Theme Editor Breakout Strategy */
   {% unless request.design_mode %}
   .wp-hero-wrapper {
     width: 100vw;
@@ -93,6 +95,11 @@
     margin-left: -50vw;
     margin-right: -50vw;
   }
+  {% else %}
+  .wp-hero-wrapper {
+    width: 100%;
+    position: relative;
+  }
   {% endunless %}
 </style>
 
@@ -101,14 +108,10 @@
     style="
       {% if section.settings.bg_image != blank %}
         --hero-bg-desktop: url('{{ section.settings.bg_image | image_url: width: 2560 }}');
-      {% else %}
-        --hero-bg-desktop: #111111;
       {% endif %}
       
       {% if section.settings.bg_image_mobile != blank %}
         --hero-bg-mobile: url('{{ section.settings.bg_image_mobile | image_url: width: 900 }}');
-      {% else %}
-        --hero-bg-mobile: var(--hero-bg-desktop);
       {% endif %}
     "
   >
@@ -131,11 +134,16 @@
             height="{{ section.settings.hero_logo.height }}"
           >
         </div>
+      {% else %}
+        <!-- QA Empty State Placeholder Graphic -->
+        <div class="wp-hero__logo" style="color: rgba(255,255,255,0.3); border: 2px dashed rgba(255,255,255,0.2); padding: 40px; border-radius: 8px;">
+          [ Upload Hero Logo Graphics Here ]
+        </div>
       {% endif %}
 
-      {% if section.settings.tagline != blank %}
-        <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
-      {% endif %}
+      <p class="wp-hero__tagline">
+        {{ section.settings.tagline | default: "Luxury candles forged from grief." }}
+      </p>
     </div>
   </section>
 </div>

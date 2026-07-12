@@ -10,13 +10,7 @@
 
 {% assign eyebrow = section.settings.eyebrow | default: 'Built on Strength' %}
 {% assign heading = section.settings.heading | default: 'Widow’s Pour' %}
-{% assign subheading = section.settings.subheading | default: section.settings.tagline | default: 'Luxury candles forged from grief.' %}
-{% assign btn_label = section.settings.btn_primary_label | default: section.settings.btn_label | default: 'Shop Now' %}
-{% assign btn_link = section.settings.btn_primary_link | default: '/collections/all' %}
-{% assign btn_bg = section.settings.btn_primary_bg | default: '#c9a84c' %}
-{% assign btn_text = section.settings.btn_primary_text | default: '#0d0a07' %}
-{% assign overlay_color = section.settings.overlay_color | default: '#000000' %}
-{% assign overlay_opacity = section.settings.overlay_opacity | default: 20 %}
+{% assign subheading = section.settings.subheading | default: 'Luxury candles forged from grief.' %}
 
 <style>
   .wp-hero {
@@ -37,7 +31,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.26) 45%, rgba(0,0,0,0.72) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.72) 100%);
     z-index: 1;
   }
 
@@ -74,32 +68,16 @@
   }
 
   .wp-hero__subheading {
-    margin: 0 0 1.2rem;
+    margin: 0;
     font-size: clamp(1rem, 1.6vw, 1.2rem);
     line-height: 1.7;
     color: #f7ebd9;
-  }
-
-  .wp-hero__button {
-    display: inline-block;
-    padding: 0.9rem 1.35rem;
-    border-radius: 999px;
-    background: {{ btn_bg }};
-    color: {{ btn_text }};
-    text-decoration: none;
-    font-weight: 600;
   }
 
   @media (max-width: 768px) {
     .wp-hero {
       min-height: 100svh;
       background-image: url('{{ mobile_bg }}');
-    }
-
-    .wp-hero__content {
-      width: min(92%, 680px);
-      padding: 1.6rem 1.2rem;
-      border-radius: 18px;
     }
   }
 </style>
@@ -116,10 +94,6 @@
 
     {% if subheading != blank %}
       <p class="wp-hero__subheading">{{ subheading }}</p>
-    {% endif %}
-
-    {% if btn_label != blank and btn_link != blank %}
-      <a class="wp-hero__button" href="{{ btn_link }}">{{ btn_label }}</a>
     {% endif %}
   </div>
 </section>
@@ -155,51 +129,6 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Luxury candles forged from grief."
-    },
-    {
-      "type": "textarea",
-      "id": "tagline",
-      "label": "Tagline (fallback)",
-      "default": "Luxury candles forged from grief."
-    },
-    {
-      "type": "text",
-      "id": "btn_primary_label",
-      "label": "Button label",
-      "default": "Shop Now"
-    },
-    {
-      "type": "url",
-      "id": "btn_primary_link",
-      "label": "Button link",
-      "default": "/collections/all"
-    },
-    {
-      "type": "color",
-      "id": "btn_primary_bg",
-      "label": "Button background",
-      "default": "#c9a84c"
-    },
-    {
-      "type": "color",
-      "id": "btn_primary_text",
-      "label": "Button text",
-      "default": "#0d0a07"
-    },
-    {
-      "type": "color",
-      "id": "overlay_color",
-      "label": "Overlay color",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "label": "Overlay opacity",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "default": 20
     }
   ],
   "presets": [

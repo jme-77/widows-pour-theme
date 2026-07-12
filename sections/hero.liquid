@@ -13,9 +13,6 @@
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
-    {% if section.settings.bg_image != blank %}
-      background-image: url('{{ desktop_bg }}');
-    {% endif %}
   }
 
   .wp-hero__overlay {
@@ -51,16 +48,16 @@
   @media (max-width: 768px) {
     .wp-hero {
       min-height: 100svh;
-      {% if section.settings.bg_image_mobile != blank %}
-        background-image: url('{{ mobile_bg }}');
-      {% elsif section.settings.bg_image != blank %}
-        background-image: url('{{ desktop_bg }}');
-      {% endif %}
     }
   }
 </style>
 
-<section class="wp-hero">
+<section
+  class="wp-hero"
+  {% if section.settings.bg_image != blank %}
+    style="background-image: url('{{ desktop_bg }}');"
+  {% endif %}
+>
   <div class="wp-hero__overlay"></div>
 
   <div class="wp-hero__content">

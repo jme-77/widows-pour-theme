@@ -1,162 +1,114 @@
+{% assign desktop_bg = section.settings.bg_image | image_url: width: 2560 %}
+{% assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900 %}
+
 <style>
-  /* Base Hero Container */
   .wp-hero {
     position: relative;
-    width: 100%;
-    min-height: 100svh;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    background-color: #111;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: var(--hero-bg-desktop);
-    background-color: #111111; /* Visible dark background fallback if image is null */
-    animation: wpHeroFadeIn 1.8s ease forwards;
+    overflow: hidden;
   }
 
-  @keyframes wpHeroFadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  .wp-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.22);
+    z-index: 1;
   }
 
-  /* Content Wrapper */
   .wp-hero__content {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
-    width: 90%;
-    max-width: 800px;
-    padding: 40px 0;
-  }
-
-  .wp-hero__logo {
-    width: 100%;
-    margin-bottom: 20px;
+    max-width: 860px;
+    padding: 2rem;
+    color: #fff;
   }
 
   .wp-hero__logo img {
+    display: block;
     max-width: 100%;
     height: auto;
-    object-fit: contain;
+    margin: 0 auto 1.25rem;
   }
 
   .wp-hero__tagline {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    color: white;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin: 0;
+    color: #f5ead8;
   }
 
-  /* Decorative Elements */
-  .wp-hero__bg {
-    position: absolute;
-    inset: 0;
-    background-image: var(--hero-bg-desktop);
-    background-size: cover;
-    background-position: center;
-    opacity: 0.18;
-    pointer-events: none;
-  }
-
-  .wp-hero__smoke { position: absolute; inset: 0; z-index: 1; }
-
-  .wp-hero__ornament { position: absolute; font-size: 2rem; color: rgba(255,255,255,0.5); }
-  .wp-hero__ornament--tl { top: 20px; left: 20px; }
-  .wp-hero__ornament--tr { top: 20px; right: 20px; }
-  .wp-hero__ornament--bl { bottom: 20px; left: 20px; }
-  .wp-hero__ornament--br { bottom: 20px; right: 20px; }
-
-  /* Mobile Responsive Overrides */
   @media (max-width: 768px) {
     .wp-hero {
-      background-image: var(--hero-bg-mobile);
       min-height: 100svh;
     }
-    .wp-hero__bg {
-      background-image: var(--hero-bg-mobile);
-    }
-    .wp-hero__logo {
-      width: 85%;
-    }
   }
-
-  /* Secure Theme Editor Breakout Strategy */
-  {% unless request.design_mode %}
-  .wp-hero-wrapper {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-  }
-  {% else %}
-  .wp-hero-wrapper {
-    width: 100%;
-    position: relative;
-  }
-  {% endunless %}
 </style>
 
-<div class="wp-hero-wrapper">
-  <section class="wp-hero"
-    style="
-      {% if section.settings.bg_image != blank %}
-        --hero-bg-desktop: url('{{ section.settings.bg_image | image_url: width: 2560 }}');
-      {% endif %}
-      
-      {% if section.settings.bg_image_mobile != blank %}
-        --hero-bg-mobile: url('{{ section.settings.bg_image_mobile | image_url: width: 900 }}');
-      {% endif %}
-    "
-  >
-    <div class="wp-hero__bg"></div>
-    <div class="wp-hero__smoke"></div>
+<section
+  class="wp-hero"
+  {% if section.settings.bg_image != blank %}
+    style="background-image: url('{{ desktop_bg }}');"
+  {% endif %}
+>
+  <div class="wp-hero__overlay"></div>
 
-    <div class="wp-hero__ornament wp-hero__ornament--tl">✦</div>
-    <div class="wp-hero__ornament wp-hero__ornament--tr">✦</div>
-    <div class="wp-hero__ornament wp-hero__ornament--bl">✦</div>
-    <div class="wp-hero__ornament wp-hero__ornament--br">✦</div>
+  <div class="wp-hero__content">
+    {% if section.settings.hero_logo != blank %}
+      <div class="wp-hero__logo">
+        <img
+          src="{{ section.settings.hero_logo | image_url: width: 800 }}"
+          alt="{{ section.settings.hero_logo.alt | default: 'Hero Graphic' }}"
+          loading="eager"
+          width="{{ section.settings.hero_logo.width }}"
+          height="{{ section.settings.hero_logo.height }}"
+        >
+      </div>
+    {% endif %}
 
-    <div class="wp-hero__content">
-      {% if section.settings.hero_logo != blank %}
-        <div class="wp-hero__logo">
-          <img 
-            src="{{ section.settings.hero_logo | image_url: width: 800 }}" 
-            alt="{{ section.settings.hero_logo.alt | default: 'Hero Graphic' }}"
-            loading="eager"
-            width="{{ section.settings.hero_logo.width }}"
-            height="{{ section.settings.hero_logo.height }}"
-          >
-        </div>
-      {% else %}
-        <!-- QA Empty State Placeholder Graphic -->
-        <div class="wp-hero__logo" style="color: rgba(255,255,255,0.3); border: 2px dashed rgba(255,255,255,0.2); padding: 40px; border-radius: 8px;">
-          [ Upload Hero Logo Graphics Here ]
-        </div>
-      {% endif %}
-
-      <p class="wp-hero__tagline">
-        {{ section.settings.tagline | default: "Luxury candles forged from grief." }}
-      </p>
-    </div>
-  </section>
-</div>
+    {% if section.settings.tagline != blank %}
+      <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
+    {% endif %}
+  </div>
+</section>
 
 {% schema %}
 {
   "name": "Hero Banner",
   "settings": [
-    { "type": "image_picker", "id": "bg_image", "label": "Background image — Desktop" },
-    { "type": "image_picker", "id": "bg_image_mobile", "label": "Background image — Mobile" },
-    { "type": "image_picker", "id": "hero_logo", "label": "Hero Graphic / Logo" },
-    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Luxury candles forged from grief." }
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background image — Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_logo",
+      "label": "Hero Graphic / Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Luxury candles forged from grief."
+    }
   ],
-  "presets": [ { "name": "Hero Banner" } ]
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
 }
 {% endschema %}

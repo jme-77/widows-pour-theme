@@ -3,11 +3,20 @@
   {% assign desktop_bg = 'widows-pour-final-hero.png' | asset_url %}
 {% endif %}
 
-{% if section.settings.bg_image_mobile != blank %}
-  {% assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900 %}
-{% else %}
+{% assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900 %}
+{% if section.settings.bg_image_mobile == blank %}
   {% assign mobile_bg = desktop_bg %}
 {% endif %}
+
+{% assign eyebrow = section.settings.eyebrow | default: 'Built on Strength' %}
+{% assign heading = section.settings.heading | default: 'Widow’s Pour' %}
+{% assign subheading = section.settings.subheading | default: section.settings.tagline | default: 'Luxury candles forged from grief.' %}
+{% assign btn_label = section.settings.btn_primary_label | default: section.settings.btn_label | default: 'Shop Now' %}
+{% assign btn_link = section.settings.btn_primary_link | default: '/collections/all' %}
+{% assign btn_bg = section.settings.btn_primary_bg | default: '#c9a84c' %}
+{% assign btn_text = section.settings.btn_primary_text | default: '#0d0a07' %}
+{% assign overlay_color = section.settings.overlay_color | default: '#000000' %}
+{% assign overlay_opacity = section.settings.overlay_opacity | default: 20 %}
 
 <style>
   .wp-hero {
@@ -28,8 +37,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.72) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.26) 45%, rgba(0,0,0,0.72) 100%);
     z-index: 1;
   }
 
@@ -48,21 +56,38 @@
     box-shadow: 0 22px 70px rgba(0,0,0,0.28);
   }
 
-  .wp-hero__logo img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto 1.3rem;
+  .wp-hero__eyebrow {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #c9a84c;
   }
 
-  .wp-hero__tagline {
-    margin: 0;
+  .wp-hero__heading {
+    margin: 0 0 0.9rem;
     font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-    line-height: 1.7;
-    letter-spacing: 0.02em;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    line-height: 1.1;
     color: #f7ebd9;
-    text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  }
+
+  .wp-hero__subheading {
+    margin: 0 0 1.2rem;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    line-height: 1.7;
+    color: #f7ebd9;
+  }
+
+  .wp-hero__button {
+    display: inline-block;
+    padding: 0.9rem 1.35rem;
+    border-radius: 999px;
+    background: {{ btn_bg }};
+    color: {{ btn_text }};
+    text-decoration: none;
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
@@ -81,25 +106,27 @@
 
 <section class="wp-hero">
   <div class="wp-hero__content">
-    {% if section.settings.hero_logo != blank %}
-      <div class="wp-hero__logo">
-        <img
-          src="{{ section.settings.hero_logo | image_url: width: 900 }}"
-          alt="{{ section.settings.hero_logo.alt | default: 'Hero Graphic' }}"
-          loading="eager"
-        >
-      </div>
+    {% if eyebrow != blank %}
+      <p class="wp-hero__eyebrow">{{ eyebrow }}</p>
     {% endif %}
 
-    {% if section.settings.tagline != blank %}
-      <p class="wp-hero__tagline">{{ section.settings.tagline }}</p>
+    {% if heading != blank %}
+      <h1 class="wp-hero__heading">{{ heading }}</h1>
+    {% endif %}
+
+    {% if subheading != blank %}
+      <p class="wp-hero__subheading">{{ subheading }}</p>
+    {% endif %}
+
+    {% if btn_label != blank and btn_link != blank %}
+      <a class="wp-hero__button" href="{{ btn_link }}">{{ btn_label }}</a>
     {% endif %}
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Hero Banner",
+  "name": "Widow's Pour Hero",
   "settings": [
     {
       "type": "image_picker",
@@ -112,20 +139,72 @@
       "label": "Background image — Mobile"
     },
     {
-      "type": "image_picker",
-      "id": "hero_logo",
-      "label": "Hero Graphic / Logo"
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Built on Strength"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Widow’s Pour"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Luxury candles forged from grief."
     },
     {
       "type": "textarea",
       "id": "tagline",
-      "label": "Tagline",
+      "label": "Tagline (fallback)",
       "default": "Luxury candles forged from grief."
+    },
+    {
+      "type": "text",
+      "id": "btn_primary_label",
+      "label": "Button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn_primary_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_bg",
+      "label": "Button background",
+      "default": "#c9a84c"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_text",
+      "label": "Button text",
+      "default": "#0d0a07"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
     }
   ],
   "presets": [
     {
-      "name": "Hero Banner"
+      "name": "Widow's Pour Hero"
     }
   ]
 }

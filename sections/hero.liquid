@@ -2,6 +2,12 @@
 {% assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900 %}
 
 <style>
+  {% if section.settings.bg_image != blank %}
+    .wp-hero {
+      background-image: url('{{ desktop_bg }}');
+    }
+  {% endif %}
+
   .wp-hero {
     position: relative;
     min-height: 100vh;
@@ -48,16 +54,16 @@
   @media (max-width: 768px) {
     .wp-hero {
       min-height: 100svh;
+      {% if section.settings.bg_image_mobile != blank %}
+        background-image: url('{{ mobile_bg }}');
+      {% elsif section.settings.bg_image != blank %}
+        background-image: url('{{ desktop_bg }}');
+      {% endif %}
     }
   }
 </style>
 
-<section
-  class="wp-hero"
-  {% if section.settings.bg_image != blank %}
-    style="background-image: url('{{ desktop_bg }}');"
-  {% endif %}
->
+<section class="wp-hero">
   <div class="wp-hero__overlay"></div>
 
   <div class="wp-hero__content">

@@ -1,13 +1,16 @@
-{% assign desktop_bg = section.settings.bg_image | image_url: width: 2560 %}
-{% if section.settings.bg_image == blank %}
-  {% assign desktop_bg = 'widows-pour-final-hero.png' | asset_url %}
-{% endif %}
+{%- liquid
+  if section.settings.bg_image != blank
+    assign desktop_bg = section.settings.bg_image | image_url: width: 2560
+  else
+    assign desktop_bg = 'widows-pour-final-hero.png' | asset_url
+  endif
 
-{% if section.settings.bg_image_mobile != blank %}
-  {% assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900 %}
-{% else %}
-  {% assign mobile_bg = desktop_bg %}
-{% endif %}
+  if section.settings.bg_image_mobile != blank
+    assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900
+  else
+    assign mobile_bg = desktop_bg
+  endif
+-%}
 
 <style>
   .wp-hero {
@@ -21,15 +24,15 @@
     background-size: cover;
     background-position: center center;
     overflow: hidden;
-    background-image: url('{{ desktop_bg }}');
+    /* Force complete HTTPS protocol to bypass local iframe browser blocks */
+    background-image: url('https:{{ desktop_bg }}');
   }
 
   .wp-hero::before {
     content: "";
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.72) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.72) 100%);
     z-index: 1;
   }
 
@@ -65,10 +68,21 @@
     text-shadow: 0 2px 18px rgba(0,0,0,0.35);
   }
 
+  /* QA UI Helper Placeholder */
+  .wp-hero__logo-placeholder {
+    display: block;
+    border: 1px dashed rgba(247, 235, 217, 0.4);
+    padding: 15px;
+    margin-bottom: 1.3rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: rgba(247, 235, 217, 0.6);
+  }
+
   @media (max-width: 768px) {
     .wp-hero {
       min-height: 100svh;
-      background-image: url('{{ mobile_bg }}');
+      background-image: url('https:{{ mobile_bg }}');
     }
 
     .wp-hero__content {
@@ -87,8 +101,16 @@
           src="{{ section.settings.hero_logo | image_url: width: 900 }}"
           alt="{{ section.settings.hero_logo.alt | default: 'Hero Graphic' }}"
           loading="eager"
+          width="{{ section.settings.hero_logo.width | default: 900 }}"
+          height="{{ section.settings.hero_logo.height | default: 450 }}"
         >
       </div>
+    {% else %}
+      {% if request.design_mode %}
+        <div class="wp-hero__logo-placeholder">
+          [ Select Hero Logo in Customizer ]
+        </div>
+      {% endif %}
     {% endif %}
 
     {% if section.settings.tagline != blank %}

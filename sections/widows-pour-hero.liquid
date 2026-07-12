@@ -1,16 +1,24 @@
-{% assign desktop_bg = section.settings.bg_image | image_url: width: 2560 %}
-{% if section.settings.bg_image == blank %}
-  {% assign desktop_bg = 'widows-pour-final-hero.png' | asset_url %}
-{% endif %}
+{% comment %}
+  Determine Desktop and Mobile image pathways safely.
+  Uses absolute asset paths if no custom image is provided by the merchant.
+{% endcomment %}
+{%- liquid
+  if section.settings.bg_image != blank
+    assign desktop_bg = section.settings.bg_image | image_url: width: 2560
+  else
+    assign desktop_bg = 'widows-pour-final-hero.png' | asset_url
+  endif
 
-{% assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 900 %}
-{% if section.settings.bg_image_mobile == blank %}
-  {% assign mobile_bg = desktop_bg %}
-{% endif %}
+  if section.settings.bg_image_mobile != blank
+    assign mobile_bg = section.settings.bg_image_mobile | image_url: width: 1000
+  else
+    assign mobile_bg = desktop_bg
+  endif
 
-{% assign eyebrow = section.settings.eyebrow | default: 'Built on Strength' %}
-{% assign heading = section.settings.heading | default: 'Widow’s Pour' %}
-{% assign subheading = section.settings.subheading | default: 'Luxury candles forged from grief.' %}
+  assign eyebrow = section.settings.eyebrow | default: 'Built on Strength'
+  assign heading = section.settings.heading | default: 'Widow’s Pour'
+  assign subheading = section.settings.subheading | default: 'Luxury candles forged from grief.'
+-%}
 
 <style>
   .wp-hero {
@@ -24,7 +32,8 @@
     background-size: cover;
     background-position: center center;
     overflow: hidden;
-    background-image: url('{{ desktop_bg }}');
+    /* CSS Variables scoped directly within the block component rules */
+    background-image: url('https:{{ desktop_bg }}');
   }
 
   .wp-hero::before {
@@ -77,24 +86,24 @@
   @media (max-width: 768px) {
     .wp-hero {
       min-height: 100svh;
-      background-image: url('{{ mobile_bg }}');
+      background-image: url('https:{{ mobile_bg }}');
     }
   }
 </style>
 
 <section class="wp-hero">
   <div class="wp-hero__content">
-    {% if eyebrow != blank %}
+    {%- if eyebrow != blank -%}
       <p class="wp-hero__eyebrow">{{ eyebrow }}</p>
-    {% endif %}
+    {%- endif -%}
 
-    {% if heading != blank %}
+    {%- if heading != blank -%}
       <h1 class="wp-hero__heading">{{ heading }}</h1>
-    {% endif %}
+    {%- endif -%}
 
-    {% if subheading != blank %}
+    {%- if subheading != blank -%}
       <p class="wp-hero__subheading">{{ subheading }}</p>
-    {% endif %}
+    {%- endif -%}
   </div>
 </section>
 
